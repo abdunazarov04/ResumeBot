@@ -1,0 +1,26 @@
+Online kursimiz haqida, ma'lumotlar.
+Keling avval nimalarni o'rganishimiz
+haqida gaplashib o'tsak kurs davomida
+Java Dastushlash tili Foundation yani
+boshlang'ich dasturlash uchun qo'yiladigan
+fundamental bilimlarni olasiz bunga misol:
+
+01 Java Tutorial.
+02 Java Methods.
+03 Java Classes.
+04 Java File Handling.
+05 Java Reference.
+06 Java Examples.
+07 Java Datastructures
+
+Kabi qiziqarli mavzularni puhta o'rganib
+borasiz albatta bu qiyin bo'lmaydi biz bilan 😁
+endi esa kusrsimiz haqidag gapirib o'tsam,
+Kurs Davomiyligi: 4 oy
+       1 oyda 12 ta dars.
+       Haftada: 3 marta.
+       Har bir dars 2 soatdan va
+       (RECORDING) yani yozib boriladi.
+       Modullar(Qisimlar) 4 ta har oyda
+       yangi modulga o'tiladi.
+       Vaqtlar hali yo'lga qo'yilmadi.
