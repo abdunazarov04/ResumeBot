@@ -21,12 +21,25 @@ public class InlineKeyboards {
         button.setCallbackData(callBackDate);
         return button;
     }
+
+    public static InlineKeyboardButton button(String text, String callBackDate, String url, boolean boolUrl) {
+        InlineKeyboardButton button = new InlineKeyboardButton();
+        button.setText(text);
+        if (boolUrl) {
+            button.setUrl(url);
+        }
+        button.setCallbackData(callBackDate);
+        return button;
+    }
+
     public static List<InlineKeyboardButton> row(InlineKeyboardButton... inlineKeyboardButtons) {
         return new LinkedList<>(Arrays.asList(inlineKeyboardButtons));
     }
+
     public static List<List<InlineKeyboardButton>> collection(List<InlineKeyboardButton>... rows) {
         return new LinkedList<>(Arrays.asList(rows));
     }
+
     public static InlineKeyboardMarkup keyboardMarkup(List<List<InlineKeyboardButton>> collections) {
         InlineKeyboardMarkup keyboardMarkup = new InlineKeyboardMarkup();
         keyboardMarkup.setKeyboard(collections);

@@ -5,16 +5,24 @@ Java Dastushlash tili Foundation yani
 boshlang'ich dasturlash uchun qo'yiladigan
 fundamental bilimlarni olasiz bunga misol:
 
-01 Java Tutorial.
-02 Java Methods.
-03 Java Classes.
-04 Java File Handling.
-05 Java Reference.
-06 Java Examples.
-07 Java Datastructures
+01 Java Starter.
+02 Java Operators.
+03 Java String class
+        (String, StringBuilder, StringBuffer)
+04 Java Control Statement.
+05 Java Arrays(Matrix).
+06 Java Methods.
+07 Java OOP.
+     ENG (Object Oriented Programming)
+     UZB (Obyektga yo'naltirilgan dastur)
+08 Java Generics
+09 Java Wrapper Classes
+10 Java Util classes
+11 Java Exceptions
 
-Kabi qiziqarli mavzularni puhta o'rganib
-borasiz albatta bu qiyin bo'lmaydi biz bilan 😁
+Bu albatta qisqartirilgan mundarija
+va qolaversa qolgan mavzular bilan birga puhta
+o'rganib boramiz bu qiyin bo'lmaydi biz bilan 😁
 endi esa kusrsimiz haqidag gapirib o'tsam,
 Kurs Davomiyligi: 4 oy
        1 oyda 12 ta dars.

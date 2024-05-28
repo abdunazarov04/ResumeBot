@@ -7,5 +7,5 @@ import uz.isystem.TelegramBot.users.Users;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer> {
-
+    Boolean existsByUserId(Long id);
 }

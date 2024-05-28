@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 public class Users {
 
     @Id
@@ -42,6 +43,6 @@ public class Users {
                 "\nlanguageCode: " + languageCode +
                 "\nisPremium: " + isPremium +
                 "\nisBot: " + isBot +
-                "Create at: " + createAt;
+                "\nCreate at: " + createAt;
     }
 }
