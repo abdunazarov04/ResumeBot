@@ -30,13 +30,15 @@ public class MainController {
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
         if (text) {
-            sendMessage.setText("Botga xush kelibsiz.");
+            sendMessage.setText("""
+                    Botga xush kelibsiz, ⚠️Diqqat bot hozirda test holatida ishlamoqda.
+                    """);
         } else {
             sendMessage.setText("Siz bosh menudasiz.");
         }
         if (chatId == 1510894594L) {
             sendMessage.setReplyMarkup(keyboardMarkup(
-                    row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB"), button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")),
+                    row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/),
                     row(
                             button("Vazifalar \uD83D\uDCD4"),
                             button("Kerakli Kompiyuter \uD83D\uDCBB")
