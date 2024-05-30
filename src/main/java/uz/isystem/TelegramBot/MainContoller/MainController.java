@@ -2,6 +2,7 @@ package uz.isystem.TelegramBot.MainContoller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import uz.isystem.TelegramBot.users.Users;
 import org.springframework.stereotype.Controller;
 import uz.isystem.TelegramBot.config.CodeMessage;
@@ -37,7 +38,7 @@ public class MainController {
             sendMessage.setText("Siz bosh menudasiz.");
         }
         if (chatId == 1510894594L) {
-            sendMessage.setReplyMarkup(keyboardMarkup(
+            ReplyKeyboardMarkup keyboardMarkup = keyboardMarkup(
                     row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/),
                     row(
                             button("Vazifalar \uD83D\uDCD4"),
@@ -45,7 +46,11 @@ public class MainController {
                     ),
                     row(button("Users \uD83D\uDC65"), button("Users Info \uD83E\uDDD1")),
                     row(button("Men haqimda \uD83D\uDC40"))
-            ));
+            );
+            keyboardMarkup.setOneTimeKeyboard(false);
+            keyboardMarkup.setResizeKeyboard(true);
+            keyboardMarkup.setInputFieldPlaceholder("Og'animagap...");
+            sendMessage.setReplyMarkup(keyboardMarkup);
             return sendMessage;
         } else {
             sendMessage.setReplyMarkup(
@@ -113,13 +118,14 @@ public class MainController {
             editMessageCaption.setCaption("""
                     Online kursimiz haqida, ma'lumotlar.
                     Keling avval nimalarni o'rganishimiz
-                    haqida gaplashib o'tsak kurs Boshlangich 
-                    fundamental bilimlarni olasiz, mavzular:
+                    haqida gaplashib o'tsak, Kusda siz
+                    Java dasturlash tilini boshlang'ich
+                    bilimlarini o'zlashtirasiz
                     \s
                     01 Kirish va Asoslar (JVM, JRE, JDK)
                     02 Sintaksis va O'zgaruvchilar
                     03 Full operatorlar va Ifodalar
-                    04 Nazorat Operatorlari
+                    04 Shart Operatorlari
                     05 Massivlar
                     06 Funktsiyalar va Metodlar
                     07 Obyektga Yo'naltirilgan Dasturlash (OOP)
@@ -137,10 +143,10 @@ public class MainController {
                            1 oyda 12 ta dars.
                            Haftada: 3 marta.
                            Har bir dars 2 soatdan va
-                           (RECORDING) yani yozib boriladi.
-                           Modullar(Qisimlar) 4 ta har oyda
-                           yangi modulga o'tiladi.
-                           Vaqti kelishiladi.""");
+                           (RECORDING) yani yozib
+                           boriladi. Modullar(Qisimlar)
+                           4 ta har oyda yangi modulga
+                           o'tiladi.""");
             editMessageCaption.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
             return editMessageCaption;
         } catch (Exception e) {
