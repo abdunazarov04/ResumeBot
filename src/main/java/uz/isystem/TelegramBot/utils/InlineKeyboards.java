@@ -22,13 +22,12 @@ public class InlineKeyboards {
         return button;
     }
 
-    public static InlineKeyboardButton button(String text, String callBackDate, String url, boolean boolUrl) {
+    public static InlineKeyboardButton button(String text, String url, boolean boolUrl) {
         InlineKeyboardButton button = new InlineKeyboardButton();
         button.setText(text);
         if (boolUrl) {
             button.setUrl(url);
         }
-        button.setCallbackData(callBackDate);
         return button;
     }
 

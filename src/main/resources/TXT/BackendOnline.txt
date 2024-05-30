@@ -1,0 +1,34 @@
+Online kursimiz haqida, ma'lumotlar.
+Keling avval nimalarni o'rganishimiz
+haqida gaplashib o'tsak kurs davomida
+Java Dastushlash tili Backend yani
+proffessional dasturlash uchun ko'plab bilimlarni
+olasiz masalan:
+
+01 Java Thread.
+02 Java Stream API.
+04 Java HTTP(URL), HTTP Client.
+05 Java S.O.L.I.D.
+06 Java JDBC.
+        (Java Database Connection)
+07 Java Telegram Bot.
+08 Lambda Expression
+09 Spring Core
+10 Spring Boot va RestApi
+        (LIBRARIES - KUTUBXONALAR)
+09 Loombok
+10 Hibernate
+11 Spring Framework
+
+Bu albatta qisqartirilgan mundarija
+va qolaversa qolgan mavzular bilan birga puhta
+o'rganib boramiz bu qiyin bo'lmaydi biz bilan 😁
+endi esa kusrsimiz haqidag gapirib o'tsam,
+Kurs Davomiyligi: 6-8 oy (o'zlashtrishga bog'liq)
+       1 oyda 12 ta dars.
+       Haftada: 3 marta.
+       Har bir dars 2 soatdan va
+       (RECORDING) yani yozib boriladi.
+       Modullar(Qisimlar) 6-8 ta har oyda
+       yangi modulga o'tiladi.
+       Vaqtlar hali yo'lga qo'yilmadi.
