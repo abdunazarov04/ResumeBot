@@ -380,7 +380,7 @@ public class BotConfig extends TelegramLongPollingBot {
             } else if (commands.contains(text)) {
                 if (text.equals("/start")) {
 
-                    if (chatId != null && !this.infoRepository.existsByUserId(chatId)) {
+                    if (!this.infoRepository.existsByUserId(chatId)) {
                         infoRepository.save(new Info(chatId, LocalDateTime.now()));
                     }
                     SendPhoto sendPhoto = this.mainController.getLanguage(chatId);
