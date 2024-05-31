@@ -1,4 +1,4 @@
-package uz.isystem.TelegramBot.config;
+package uz.isystem.TelegramBot.enums;
 
 import lombok.Getter;
 import lombok.Setter;

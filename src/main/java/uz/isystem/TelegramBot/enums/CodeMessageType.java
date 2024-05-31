@@ -1,4 +1,4 @@
-package uz.isystem.TelegramBot.config;
+package uz.isystem.TelegramBot.enums;
 
 public enum CodeMessageType {
 

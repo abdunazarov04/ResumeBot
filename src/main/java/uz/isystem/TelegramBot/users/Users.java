@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -34,6 +35,7 @@ public class Users {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
         return "New Message\n" +
                 "userId: " + userId +
                 "\nfirstName: " + firstName +
@@ -43,6 +45,6 @@ public class Users {
                 "\nlanguageCode: " + languageCode +
                 "\nisPremium: " + isPremium +
                 "\nisBot: " + isBot +
-                "\nCreate at: " + createAt;
+                "\nCreate at: " + createAt.format(formatter);
     }
 }
