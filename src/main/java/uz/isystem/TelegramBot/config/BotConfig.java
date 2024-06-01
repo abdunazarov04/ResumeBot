@@ -2,7 +2,6 @@ package uz.isystem.TelegramBot.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.web.format.DateTimeFormatters;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -40,14 +39,15 @@ public class BotConfig extends TelegramLongPollingBot {
     private final List<String> callbackCommands = List.of("/back", "/back/2", "/foundation/online", "/foundation/offline", "/backend/online", "/backend/offline", "/f/o/kursga/yozilish", "/presentation", "/back/resource");
     private final List<String> callbackTasksCommands = List.of("/foundation/tasks", "/tasks/add-button");
     private final List<String> callbackSocialMedia = List.of("/cv", "/social/media/back");
-    private final List<String> myCommands = List.of("2021", "Users Info \uD83E\uDDD1", "Users \uD83D\uDC65");
+    private final List<String> trashCallback = List.of("bad/news/delete/message", "good/news/delete/message");
+    private final List<String> myCommands = List.of("2021", "Users Info \uD83E\uDDD1", "Users \uD83D\uDC65", "Send Warning message \uD83D\uDEB7", "Send Bot Started message \uD83D\uDE04");
     private final List<String> callbackTasksCommand = List.of("/tasks/if", "/tasks/for", "/tasks/while", "/tasks/methods", "/tasks/arrays", "/tasks/back", "/foundation/tasks/back", "/foundation/task/back", "/tasks/print-function", "/tasks/maths");
     private final List<String> buttonCommands = List.of("Men haqimda \uD83D\uDC40", "Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB", "Backend \uD83D\uDC68\u200D\uD83D\uDCBB", "Vazifalar \uD83D\uDCD4", "Kerakli Kompiyuter \uD83D\uDCBB");
     private final Map<Long, Integer> mapUsers = new HashMap<>();
     private final InfoRepository infoRepository;
 
 
-    static int timeControl = 15;
+    static int timeControl = 8;
 
     public void setMapUsers(Long chatId, Integer messageId) {
         mapUsers.put(chatId, messageId);
@@ -62,12 +62,12 @@ public class BotConfig extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         SendDocument sendDocument;
-      /* if (update.getMessage().hasPhoto()){
+      /*  if (update.getMessage().hasPhoto()) {
 
-           PhotoSize photoSize = update.getMessage().getPhoto().get(update.getMessage().getPhoto().size() - 1);
-           System.out.println(photoSize.getFileId());
+            PhotoSize photoSize = update.getMessage().getPhoto().get(update.getMessage().getPhoto().size() - 1);
+            System.out.println(photoSize.getFileId());
 
-       }*/
+        }*/
         if (update.hasCallbackQuery()) {
 
             CallbackQuery callbackQuery = update.getCallbackQuery();
@@ -110,6 +110,20 @@ public class BotConfig extends TelegramLongPollingBot {
                     SendPhoto sendPhoto = this.mainController.aboutMe(chatId);
                     codeMessage.setType(CodeMessageType.PHOTO);
                     codeMessage.setSendPhoto(sendPhoto);
+                    execute();
+                    return;
+                }
+            } else if (trashCallback.contains(dataText)) {
+                if (dataText.equals("bad/news/delete/message")) {
+                    DeleteMessage deleteMessage = getDeleteMessage(chatId, callbackQuery.getMessage().getMessageId());
+                    codeMessage.setType(CodeMessageType.DELETE_MESSAGE);
+                    codeMessage.setDeleteMessage(deleteMessage);
+                    execute();
+                    return;
+                } else if (dataText.equals("good/news/delete/message")) {
+                    DeleteMessage deleteMessage = getDeleteMessage(chatId, callbackQuery.getMessage().getMessageId());
+                    codeMessage.setType(CodeMessageType.DELETE_MESSAGE);
+                    codeMessage.setDeleteMessage(deleteMessage);
                     execute();
                     return;
                 }
@@ -359,7 +373,7 @@ public class BotConfig extends TelegramLongPollingBot {
 
                 Users users = this.mainController.getUsers(update, contact);
                 user(users);
-                if (!this.userRepository.existsByUserId(users.getUserId())) {
+                if (!this.userRepository.existsUsersByUserId(users.getUserId())) {
                     userRepository.save(users);
                     sendMessage(chatId, "<b>Siz bilan tez orada bog'lanamiz.</b>");
                 } else {
@@ -380,7 +394,7 @@ public class BotConfig extends TelegramLongPollingBot {
             } else if (commands.contains(text)) {
                 if (text.equals("/start")) {
 
-                    if (!this.infoRepository.existsByUserId(chatId)) {
+                    if (!this.infoRepository.existsInfoByUserId(chatId)) {
                         infoRepository.save(new Info(chatId, LocalDateTime.now()));
                     }
                     SendPhoto sendPhoto = this.mainController.getLanguage(chatId);
@@ -439,12 +453,16 @@ public class BotConfig extends TelegramLongPollingBot {
                 if (chatId == (1510894594L) && text.equals("Users \uD83D\uDC65")) {
                     getAllUserInfo(chatId);
                 } else if (chatId == (1510894594L) && text.equals("Users Info \uD83E\uDDD1")) {
-                    registeredUsersInfo(chatId);
+                    getRegisteredUsersInfo(chatId);
                 } else if (chatId == (1510894594L) && text.equals("2021")) {
                     sendDocument = this.mainController.presentationHandler(chatId);
                     codeMessage.setType(CodeMessageType.DOCUMENT);
                     codeMessage.setSendDocument(sendDocument);
                     execute();
+                } else if (chatId == (1510894594L) && text.equals("Send Warning message \uD83D\uDEB7")) {
+                    badNews();
+                } else if (chatId == (1510894594L) && text.equals("Send Bot Started message \uD83D\uDE04")) {
+                    goodNews();
                 }
             } else {
                 if (text.equals("Ortga")) {
@@ -463,12 +481,61 @@ public class BotConfig extends TelegramLongPollingBot {
         }
     }
 
-    private void registeredUsersInfo(Long chatId) {
+    private void badNews() {
+        List<Users> all = this.userRepository.findAll();
+        int userCount = 0;
+
+        for (Users user : all) {
+            if (user.getUserId() != null && user.getUserId() != 1510894594L) {
+                userCount++;
+                SendPhoto sendPhoto = this.mainController.sendBadNews(user.getUserId());
+                codeMessage.setSendPhoto(sendPhoto);
+                codeMessage.setType(CodeMessageType.PHOTO);
+                execute();
+            }
+            if (userCount > 0 && userCount % 10 == 0) {
+                try {
+                    sendMessage(1510894594L, "Malumot ko'pligi bois time control ishga tushdi kutish vaqti: " + timeControl);
+                    TimeUnit.SECONDS.sleep(timeControl);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+
+        }
+    }
+
+    private void goodNews() {
+        List<Users> all = this.userRepository.findAll();
+        int userCount = 0;
+
+        for (Users user : all) {
+            if (user.getUserId() != null && user.getUserId() != 1510894594L) {
+                userCount++;
+                SendPhoto sendPhoto = this.mainController.sendGoodNews(user.getUserId());
+                codeMessage.setSendPhoto(sendPhoto);
+                codeMessage.setType(CodeMessageType.PHOTO);
+                execute();
+            }
+            if (userCount > 0 && userCount % 10 == 0) {
+                try {
+                    sendMessage(1510894594L, "Malumot ko'pligi bois time control ishga tushdi kutish vaqti: " + timeControl);
+                    TimeUnit.SECONDS.sleep(timeControl);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+
+        }
+    }
+
+    private void getRegisteredUsersInfo(Long chatId) {
         List<Users> usersList = userRepository.findAll();
         sendMessage(chatId, "Ro'yxatdan o'tgan userlar soni: " + (long) usersList.size());
         if (!usersList.isEmpty()) {
             int userCount = 0;
             int userCountHelper = 10;
+            int count = 0;
             StringBuilder sb = new StringBuilder();
             for (Users user : usersList) {
                 sb.append(user).append("\n\n");
@@ -476,13 +543,14 @@ public class BotConfig extends TelegramLongPollingBot {
                 if (userCount % userCountHelper == 0) {
                     sendMessage(chatId, sb.toString());
                     sb.setLength(0);
-                    if (userCount == 10) {
-                        try {
-                            sendMessage(chatId, "Malumot kp'pligi bois time control ishga tushdi kutish vaqti: " + timeControl);
-                            TimeUnit.SECONDS.sleep(timeControl);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
+                    count++;
+                }
+                if (count > 0 && count % 10 == 0) {
+                    try {
+                        sendMessage(chatId, "Malumot ko'pligi bois time control ishga tushdi kutish vaqti: " + timeControl);
+                        TimeUnit.SECONDS.sleep(timeControl);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                     }
                 }
             }
@@ -500,6 +568,7 @@ public class BotConfig extends TelegramLongPollingBot {
         if (!infoList.isEmpty()) {
             int infoCount = 0;
             int infoCountHelper = 10;
+            int count = 0;
             StringBuilder sb = new StringBuilder();
             for (Info info : infoList) {
                 sb.append(info).append("\n\n");
@@ -507,17 +576,17 @@ public class BotConfig extends TelegramLongPollingBot {
                 if (infoCount % infoCountHelper == 0) {
                     sendMessage(chatId, sb.toString());
                     sb.setLength(0);
-                    if (infoCount == 10) {
-                        try {
-                            sendMessage(chatId, "Malumot kp'pligi bois time control ishga tushdi kutish vaqti: " + timeControl);
-                            TimeUnit.SECONDS.sleep(timeControl);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
+                    count++;
+                }
+                if (count > 0 && count % 10 == 0) {
+                    try {
+                        sendMessage(chatId, "Malumot ko'pligi bois time control ishga tushdi kutish vaqti: " + timeControl);
+                        TimeUnit.SECONDS.sleep(timeControl);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                     }
                 }
             }
-
 
             if (!sb.isEmpty()) {
                 sendMessage(chatId, sb.append("\n\n").toString());
@@ -628,7 +697,6 @@ public class BotConfig extends TelegramLongPollingBot {
         message.setParseMode(ParseMode.HTML);
         message.setChatId(chatId);
         message.setText(text);
-
         try {
             execute(message);
         } catch (TelegramApiException e) {

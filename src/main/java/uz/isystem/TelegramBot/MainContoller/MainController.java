@@ -36,7 +36,14 @@ public class MainController {
                 sendMessage.setText("Siz bosh menudasiz.");
             }
             if (chatId == 1510894594L) {
-                ReplyKeyboardMarkup keyboardMarkup = keyboardMarkup(row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/), row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")), row(button("Users \uD83D\uDC65"), button("Users Info \uD83E\uDDD1")), row(button("Men haqimda \uD83D\uDC40")));
+                ReplyKeyboardMarkup keyboardMarkup = keyboardMarkup(
+                        row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/),
+                        row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")),
+                        row(button("Men haqimda \uD83D\uDC40")),
+                        row(button("Users \uD83D\uDC65"), button("Users Info \uD83E\uDDD1")),
+                        row(button("Send Warning message \uD83D\uDEB7")),
+                        row(button("Send Bot Started message \uD83D\uDE04"))
+                );
                 keyboardMarkup.setOneTimeKeyboard(false);
                 keyboardMarkup.setResizeKeyboard(true);
                 keyboardMarkup.setInputFieldPlaceholder("Og'animagap...");
@@ -477,5 +484,23 @@ public class MainController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public SendPhoto sendBadNews(Long chatId) {
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(chatId);
+        sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIGg2ZbgVASfkZkc2SLXedbLUyYB6_HAALt2zEbl3bhSnOWH2PungMQAQADAgADeAADNQQ"));
+        sendPhoto.setCaption("BAD NEWS\nAssalomu Alaykum\nbot hozirda faol emas\ntez orada qayta ishga\nishlay boshlaydi \uD83E\uDD15 \n\nJAVACHI GROUP");
+        sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Habarni o'chirish ♻️", "bad/news/delete/message")))));
+        return sendPhoto;
+    }
+
+    public SendPhoto sendGoodNews(Long userId) {
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setChatId(userId);
+        sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIGhGZbgZbXHW6EGLhxZgpcVRN-XndcAALv2zEbl3bhSpVwLbKxUQ85AQADAgADeAADNQQ"));
+        sendPhoto.setCaption("GOOD NEWS\nAssalomu Alaykum\nbot yana o'z faoliyatida\ndavom etmoqda tabrikleshin\nqutleshin \uD83D\uDE01 \n\nJAVACHI GROUP");
+        sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Habarni o'chirish ♻️", "good/news/delete/message")))));
+        return sendPhoto;
     }
 }
