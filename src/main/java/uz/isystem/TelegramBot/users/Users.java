@@ -22,8 +22,7 @@ public class Users {
     @Column(name = "last_name")
     private String lastName;
     private String username;
-    @Column(name = "phone_number")
-    private String phoneNumber;
+
     @Column(name = "language_code")
     private String languageCode;
     @Column(name = "is_premium")
@@ -41,7 +40,6 @@ public class Users {
                 "\nfirstName: " + firstName +
                 "\nlastName: " + lastName +
                 "\nusername: " + username +
-                "\nphoneNumber: " + phoneNumber +
                 "\nlanguageCode: " + languageCode +
                 "\nisPremium: " + isPremium +
                 "\nisBot: " + isBot +

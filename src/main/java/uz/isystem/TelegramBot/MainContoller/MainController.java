@@ -1,21 +1,19 @@
 package uz.isystem.TelegramBot.MainContoller;
 
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import java.time.LocalDateTime;
+
 import uz.isystem.TelegramBot.users.Users;
 import org.springframework.stereotype.Controller;
-import uz.isystem.TelegramBot.enums.CodeMessage;
 import org.telegram.telegrambots.meta.api.objects.*;
 import uz.isystem.TelegramBot.utils.InlineKeyboards;
 import org.telegram.telegrambots.meta.api.methods.send.*;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageCaption;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 
-import java.time.LocalDateTime;
 
-import static uz.isystem.TelegramBot.utils.KeyboardMarkup.keyboardMarkup;
-import static uz.isystem.TelegramBot.utils.InlineKeyboards.collection;
-import static uz.isystem.TelegramBot.utils.KeyboardMarkup.button;
 import static uz.isystem.TelegramBot.utils.KeyboardMarkup.row;
+import static uz.isystem.TelegramBot.utils.KeyboardMarkup.button;
+import static uz.isystem.TelegramBot.utils.KeyboardMarkup.keyboardMarkup;
 
 @Controller
 public class MainController {
@@ -40,7 +38,7 @@ public class MainController {
                         row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/),
                         row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")),
                         row(button("Men haqimda \uD83D\uDC40")),
-                        row(button("Users \uD83D\uDC65"), button("Users Info \uD83E\uDDD1")),
+                        row(button("Users \uD83D\uDC65")),
                         row(button("Send Warning message \uD83D\uDEB7")),
                         row(button("Send Bot Started message \uD83D\uDE04"))
                 );
@@ -73,85 +71,7 @@ public class MainController {
     }
 
     public SendPhoto foundationHandler(Long chatId) {
-        try {
-            SendPhoto sendPhoto = new SendPhoto();
-            sendPhoto.setPhoto(new InputFile());
-            sendPhoto.setChatId(chatId);
-            sendPhoto.setCaption("""
-                    Yana bir bor sizni Foundation bo'limizda
-                    ko'rib turganimizdan Hursandmiz hozirda
-                    faqat Online kurslarimiz mavjud to'liq
-                    ma'lumot olish uchun tugmani bosing 👇""");
-            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFCmZaEv33xjIas70CCnJCg6sovFAyAAJD2zEbl3bRSvPMIRTOXG7IAQADAgADeAADNQQ"));
-            sendPhoto.setAllowSendingWithoutReply(true);
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("\uD83D\uDC49 Online \uD83D\uDC48", "/foundation/online")/*,
-                                        InlineKeyboards.button("\uD83D\uDC49 Offline \uD83D\uDC48", "/foundation/offline")*/), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));
-            return sendPhoto;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public EditMessageCaption onlineCourseHandler(Integer messageId, Long id) {
-        try {
-            EditMessageCaption editMessageCaption = new EditMessageCaption();
-            editMessageCaption.setChatId(id);
-            editMessageCaption.setMessageId(messageId);
-            editMessageCaption.setCaption("""
-                    Online kursimiz haqida, ma'lumotlar.
-                    Keling avval nimalarni o'rganishimiz
-                    haqida gaplashib o'tsak, Kusda siz
-                    Java dasturlash tilini boshlang'ich
-                    bilimlarini o'zlashtirasiz
-                    \s
-                    01 Kirish va Asoslar (JVM, JRE, JDK)
-                    02 Sintaksis va O'zgaruvchilar
-                    03 Full operatorlar va Ifodalar
-                    04 Shart Operatorlari
-                    05 Massivlar
-                    06 Funktsiyalar va Metodlar
-                    07 Obyektga Yo'naltirilgan Dasturlash (OOP)
-                    08 Paketlar va Kataloglar
-                    09 Java Collections
-                    10 Exception Handling
-                    11 Fayllar bilan Ishlash
-                    \s
-                    Bu albatta
-                    qisqartirilgan mundarija va qolaversa
-                    qolgan mavzular bilan birga puhta o'rganib
-                    boramiz bu qiyin bo'lmaydi biz bilan, endi
-                    esa kusrsimiz haqidag gapirib o'tsam,
-                    Kurs Davomiyligi: 4 oy
-                           1 oyda 12 ta dars.
-                           Haftada: 3 marta.
-                           Har bir dars 2 soatdan va
-                           (RECORDING) yani yozib
-                           boriladi. Modullar(Qisimlar)
-                           4 ta har oyda yangi modulga
-                           o'tiladi.""");
-            editMessageCaption.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
-            return editMessageCaption;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    public CodeMessage onlineCourseRegisterHandler(Long id) {
-        try {
-            CodeMessage codeMessage = new CodeMessage();
-            SendPhoto sendPhoto = new SendPhoto();
-            sendPhoto.setChatId(id);
-            sendPhoto.setCaption("""
-                    Siz bilan bo'glanishimiz
-                    uchun bizga Contact ulashing.""");
-            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFC2ZaEyb_zyi77KZ1YUCYuxuvGCUsAAJE2zEbl3bRSqMinhnyZVesAQADAgADeAADNQQ"));
-            sendPhoto.setReplyMarkup(keyboardMarkup(row(button("Raqam yuborish", true))));
-            codeMessage.setSendPhoto(sendPhoto);
-            return codeMessage;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return getSendPhoto(chatId);
     }
 
     public SendPhoto backendHandler(Long chatId) {
@@ -219,14 +139,13 @@ public class MainController {
         }
     }
 
-    public Users getUsers(Update update, Contact contact) {
+    public Users getUsers(Update update) {
         User from = update.getMessage().getFrom();
         Users users = new Users();
-        users.setUserId(contact.getUserId());
+        users.setUserId(update.getMessage().getChatId());
         users.setFirstName(from.getFirstName());
         users.setLastName(from.getLastName());
         users.setUsername(from.getUserName());
-        users.setPhoneNumber(contact.getPhoneNumber());
         users.setLanguageCode(from.getLanguageCode());
         users.setIsPremium(from.getIsPremium());
         users.setIsBot(from.getIsBot());
@@ -234,18 +153,38 @@ public class MainController {
         return users;
     }
 
-    public EditMessageCaption getEditMessageCaption(Long id, Integer messageId) {
-        try {
-            EditMessageCaption editMessageCaption = new EditMessageCaption();
-            editMessageCaption.setChatId(id);
-            editMessageCaption.setMessageId(messageId);
-            editMessageCaption.setCaption("""
-                    Backend kursigi hush kelib siz
-                    Kurs Turini tanlang;""");
+    public SendPhoto backOnlineCourse(Long chatId) {
+        return getSendPhoto(chatId);
+    }
 
-            editMessageCaption.setReplyMarkup(InlineKeyboards.keyboardMarkup(collection(InlineKeyboards.row(InlineKeyboards.button("\uD83D\uDC49 Online \uD83D\uDC48", "/foundation/online")/*,
-                                        InlineKeyboards.button("\uD83D\uDC49 Offline \uD83D\uDC48", "/foundation/offline")*/), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));
-            return editMessageCaption;
+    private SendPhoto getSendPhoto(Long chatId) {
+        try {
+            SendPhoto sendPhoto = new SendPhoto();
+            sendPhoto.setPhoto(new InputFile());
+            sendPhoto.setChatId(chatId);
+            sendPhoto.setCaption("""
+                    Yana bir bor sizni Foundation
+                    bo'limida ko'rib turganimizdan
+                    Hursandmiz hozirda faqat Online
+                    kurslarimiz mavjud iltimos
+                    yo'nalishlardan birini tanlang👇""");
+            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFCmZaEv33xjIas70CCnJCg6sovFAyAAJD2zEbl3bRSvPMIRTOXG7IAQADAgADeAADNQQ"));
+            sendPhoto.setAllowSendingWithoutReply(true);
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup
+                    (InlineKeyboards.collection(
+                            InlineKeyboards.row(
+                                    InlineKeyboards.button(" Networking \uD83D\uDC48", "/foundation/networking")
+                            ),
+                            InlineKeyboards.row(
+                                    InlineKeyboards.button(" Java Foundation \uD83D\uDC48", "/foundation/java")
+                            ),
+                            InlineKeyboards.row(
+                                    InlineKeyboards.button(" C++ Foundation \uD83D\uDC48", "/foundation/c++")
+                            ), InlineKeyboards.row(
+                                    InlineKeyboards.button(" Java Telegram Bot \uD83D\uDC48", "/foundation/telegram-bot")
+                            ),
+                            InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));
+            return sendPhoto;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -502,5 +441,197 @@ public class MainController {
         sendPhoto.setCaption("GOOD NEWS\nAssalomu Alaykum\nbot yana o'z faoliyatida\ndavom etmoqda tabrikleshin\nqutleshin \uD83D\uDE01 \n\nJAVACHI GROUP");
         sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Habarni o'chirish ♻️", "good/news/delete/message")))));
         return sendPhoto;
+    }
+
+    public SendPhoto onlineCourseJavaFoundation(Long id) {
+        try {
+            SendPhoto sendPhoto = new SendPhoto();
+            sendPhoto.setChatId(id);
+            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHRmZcvLTHtijk3c5rB22zzuAi6cFQAAII4jEblfLoSrWxKhU5t6DbAQADAgADeAADNQQ"));
+            sendPhoto.setCaption("""
+                    Java dasturlash tilini o'rganish bo'yicha
+                    online kursimizga taklif qilamiz. Bu kurs
+                    dasturlashning asosiy tamoyillarini o'rganish
+                    va kuchli dasturchi bo'lish yo'lida birinchi
+                    qadamlarni qo'yishga yordam beradi. Kelajakda
+                    IT sohasida muvaffaqiyatga erishishni xohlasangiz,
+                    bu kurs aynan siz uchun!
+                       \s
+                       1 Nimalarni o'rganasiz?
+                       2 Kirish va Asoslar (JVM, JRE, JDK)
+                       3 Sintaksis va O'zgaruvchilar
+                       4 Operatorlar va Ifodalar
+                       5 Shart Operatorlari
+                       6 Massivlar
+                       7 Funktsiyalar va Metodlar
+                       8 Obyektga Yo'naltirilgan Dasturlash (OOP)
+                       9 Paketlar va Kataloglar
+                       10 Java Collections
+                       11 Exception Handling
+                       12 Fayllar bilan Ishlash
+                       \s
+                       Kurs Davomiyligi
+                        Davomiyligi: 4 oy
+                         Modullar: 4 ta
+                          Oylik darslar: 12 ta
+                           Haftalik darslar: 3 marta
+                            Har bir dars: 2 soat (darslar yozib boriladi)
+                        \s
+                    Sizni kursda ko'rishdan mamnun bo'lamiz!
+                    """);
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            return sendPhoto;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public SendPhoto onlineCourseRegisterHandler(Long id) {
+        try {
+            SendPhoto sendPhoto = new SendPhoto();
+            sendPhoto.setChatId(id);
+            sendPhoto.setCaption("Maqsadlar sari yana bir qadam \uD83D\uDE09");
+            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHnWZczKDj_59rcBg86JGw7c1TabAxAAJt4jEblfLoSmQ88AT2pvWPAQADAgADeAADNQQ"));
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(
+                    InlineKeyboards.row(InlineKeyboards.button("Murojat qilish", "https://t.me/AsadbekAbdinazarov", true)),
+                    InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2"))
+
+            )));
+            return sendPhoto;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public SendPhoto onlineCourseTelegramBot(Long chatId) {
+        try {
+            SendPhoto sendPhoto = new SendPhoto();
+            sendPhoto.setChatId(chatId);
+            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHQGZcu6RC0w97Af_-0IPLeosBC4BRAAL94TEblfLoSiALU4nGeAJyAQADAgADeAADNQQ"));
+            sendPhoto.setCaption("""
+                     Ushbu kurs orqali siz zamonaviy texnologiyalardan
+                    foydalanib, o'zingizning Telegram botlaringizni
+                    yaratishni o'rganasiz. Agar siz dasturlashga
+                    qiziqsangiz yoki IT sohasida yangi ko'nikmalarni
+                    o'rganishni xohlasangiz, bu kurs aynan siz uchun!
+                      \s
+                      1 Kurs Dasturi
+                      2 Kerakli taminotlar
+                      3 Telegram API va BotFather
+                      4 Java bilan Telegram botini yaratish
+                      5 Botni sozlash va ishga tushirish
+                      6 Xabarlarni qabul qilish va qayta ishlash
+                      7 Qo'shimcha funksiyalar qo'shish
+                      8 Botni test qilish va debugging
+                      9 Botni serverga joylashtirish
+                      10 Foydalanuvchi ma'lumotlarini himoya qilish
+                      11 Botni optimallashtirish va monitoring qilish
+                      12 Ma'lumotlar Bazasi bilan ishlash
+                      13 Amaliy loyihalar
+                      \s
+                    Kursga yozilish uchun hoziroq bizga murojaat
+                    qiling va yangi bilimlar olamiga qadam qo'ying!
+                      \s
+                       Kurs Davomiyligi
+                        Davomiyligi: ? oy
+                         Oylik darslar: 12 ta
+                          Haftalik darslar: 3 marta
+                           Har bir dars: 2 soat (darslar yozib boriladi)
+                      \s
+                    Sizni kursda ko'rishdan mamnun bo'lamiz!""");
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            return sendPhoto;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public SendPhoto onlineCourseCPlusPlus(Long chatId) {
+        try {
+            SendPhoto sendPhoto = new SendPhoto();
+            sendPhoto.setChatId(chatId);
+            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHZmZcwx_FRe5amz64paopuNvHKrZVAAIp4jEblfLoSmZ4hP1eaXA0AQADAgADeAADNQQ"));
+            sendPhoto.setCaption("""
+                    Ushbu kurs orqali siz C++ dasturlash
+                    tilini o'rganib, zamonaviy dasturlash
+                    ko'nikmalariga ega bo'lasiz. Agar siz
+                    dasturlashga qiziqsangiz yoki IT sohasida
+                    yangi ko'nikmalarni o'rganishni xohlasangiz,
+                    bu kurs aynan siz uchun!
+                      \s
+                      1 Kurs Dasturi
+                      2 Kirish
+                      3 C++ dasturlash tilining asoslari
+                      4 Asosiy sintaksis va ma'lumot turlari
+                      5 O'zgaruvchilar, operatorlar va shartlar
+                      6 Massivlar va pointerlar
+                      7 Funksiyalar va metodlar
+                      8 Ob'ektga yo'naltirilgan dasturlash (OOP)
+                      9 Ma'lumotlar strukturalari va algoritmlar
+                      10 Amaliy loyihalar
+                      \s
+                    C++ dasturlash tilini o'rganish va zamonaviy
+                    dasturlash ko'nikmalariga ega bo'lish imkoniyatini
+                    qo'ldan boy bermang! Kursga yozilish uchun hoziroq
+                    bizga murojaat qiling va yangi bilimlar olamiga
+                    qadam qo'ying!
+                      \s
+                       Kurs Davomiyligi
+                        Davomiyligi: ? oy
+                         Oylik darslar: 12 ta
+                          Haftalik darslar: 3 marta
+                           Har bir dars: 2 soat (darslar yozib boriladi)
+                      \s
+                    Sizni kursda ko'rishdan mamnun bo'lamiz!""");
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            return sendPhoto;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public SendPhoto onlineCourseNetworking(Long chatId) {
+        try {
+            SendPhoto sendPhoto = new SendPhoto();
+            sendPhoto.setChatId(chatId);
+            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHfWZcyg4wn7Sk8Bq8U0OGOpyI6m66AAJa4jEblfLoSgq9SJcjJaAOAQADAgADeAADNQQ"));
+            sendPhoto.setCaption("""
+                    Ushbu kurs orqali siz tarmoq (networking)
+                    asoslarini o'rganib, zamonaviy tarmoq texnologiyalari
+                    bo'yicha ko'nikmalarga ega bo'lasiz.
+                    Agar siz IT sohasiga qiziqsangiz yoki yangi
+                    ko'nikmalarni o'rganishni xohlasangiz,
+                    bu kurs aynan siz uchun!
+                      \s
+                    Kurs Dasturi
+                      1 Kirish.
+                      2 Tarmoq asoslari.
+                      3 OSI va TCP/IP modellari.
+                      4 IP manzillash.
+                      5 Subnetting va VLAN.
+                      6 Routing va Switching.
+                      7 Tarmoq xavfsizligi.
+                      8 Wi-Fi va simsiz tarmoqlar.
+                      9 Tarmoq monitoringi va troubleshooting.
+                      10 Amaliy loyihalar.
+                      \s
+                    Tarmoq texnologiyalarini o'rganish va zamonaviy
+                    ko'nikmalarga ega bo'lish imkoniyatini qo'ldan
+                    boy bermang! Kursga yozilish uchun hoziroq bizga
+                    murojaat qiling va yangi bilimlar olamiga qadam qo'ying!
+                      \s
+                       Kurs Davomiyligi
+                        Davomiyligi: ? oy
+                         Oylik darslar: 12 ta
+                          Haftalik darslar: 3 marta
+                           Har bir dars: 2 soat (darslar yozib boriladi)
+                      \s
+                    Sizni kursda ko'rishdan mamnun bo'lamiz!""");
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            return sendPhoto;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
