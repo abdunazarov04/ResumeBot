@@ -1,5 +1,7 @@
 package uz.isystem.TelegramBot.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
 import uz.isystem.TelegramBot.users.Users;
@@ -17,6 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMember;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMember;
 
+import javax.swing.text.html.parser.Entity;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.*;
@@ -36,23 +39,23 @@ public class BotConfig extends TelegramLongPollingBot {
     private final List<String> commands = List.of("/start", "/stop", "/help", "/check/subscribe");
     private final List<String> callbackTasksCommands = List.of("/foundation/tasks", "/tasks/add-button");
     private final List<String> trashCallback = List.of("bad/news/delete/message", "good/news/delete/message");
-    private final List<String> myCommands = List.of("2021", "Users Info \uD83E\uDDD1", "Users \uD83D\uDC65", "Send Warning message \uD83D\uDEB7", "Send Bot Started message \uD83D\uDE04");
+    private final List<String> myCommands = List.of("2021", "Users Info \uD83E\uDDD1", "Users \uD83D\uDC65", "Send Warning \uD83D\uDEB7", "Send Bot Started \uD83D\uDE04", "clean");
     private final List<String> callbackCommands = List.of("/back", "/back/2", "/foundation/java", "/foundation/telegram-bot", "/foundation/c++", "/foundation/networking", "/f/o/kursga/yozilish", "/presentation", "/back/resource");
     private final List<String> buttonCommands = List.of("Men haqimda \uD83D\uDC40", "Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB", "Backend \uD83D\uDC68\u200D\uD83D\uDCBB", "Vazifalar \uD83D\uDCD4", "Kerakli Kompiyuter \uD83D\uDCBB");
     private final List<String> callbackTasksCommand = List.of("/tasks/if", "/tasks/for", "/tasks/while", "/tasks/methods", "/tasks/arrays", "/tasks/back", "/foundation/tasks/back", "/foundation/task/back", "/tasks/print-function", "/tasks/maths");
 
 
     static int timeControl = 8;
+    private final Map<Long, Integer> userMessages = new HashMap<>();
 
-    private final Map<Long, Integer> mapUsers = new HashMap<>();
-
-    public void setMapUsers(Long chatId, Integer messageId) {
-        mapUsers.put(chatId, messageId);
+    public void setUserMessages(Long chatId, Integer messageId) {
+        this.userMessages.put(chatId, messageId);
     }
 
-    public Integer getMapUsers(Long chatId) {
-        return mapUsers.get(chatId);
+    public Integer getUserMessageId(Long chatId) {
+        return this.userMessages.get(chatId);
     }
+
 
     private final CodeMessage codeMessage = new CodeMessage();
     private static final long ERROR_CHAT_ID = -1002229918655L;
@@ -348,7 +351,6 @@ public class BotConfig extends TelegramLongPollingBot {
 
                 } else if (update.getCallbackQuery().getData().equals("language/o'zbek")) {
                     DeleteMessage deleteMessage = getDeleteMessage(chatId, messageId);
-//                    mapUsers.put(chatId, update.getCallbackQuery().getMessage().getMessageId());
                     SendMessage sendMessage;
                     sendMessage = this.mainController.startHandler(chatId, true);
                     codeMessage.setType(CodeMessageType.MESSAGE);
@@ -384,6 +386,7 @@ public class BotConfig extends TelegramLongPollingBot {
                 boolean isMember = isUserMember(channel, userId);
                 SendMessage sendMessage = new SendMessage();
                 Message message = update.getMessage();
+                Integer messageId = message.getMessageId();
                 String text = message.getText();
                 Long chatId = message.getChatId();
                 /*if (update.getMessage().hasContact()) {
@@ -419,6 +422,7 @@ public class BotConfig extends TelegramLongPollingBot {
                     execute();
                 } else if (text != null && commands.contains(text)) {
                     if (text.equals("/start")) {
+
                         Users users = this.mainController.getUsers(update);
                         user(users);
                         if (!this.userRepository.existsUsersByUserId(users.getUserId())) {
@@ -429,12 +433,13 @@ public class BotConfig extends TelegramLongPollingBot {
                         codeMessage.setType(CodeMessageType.PHOTO);
                         codeMessage.setSendPhoto(sendPhoto);
                         execute();
-                    } else if (text.equals("/help")) {
 
+                    } else if (text.equals("/help")) {
                         SendPhoto sendPhoto = this.mainController.helpHandler(chatId);
                         codeMessage.setType(CodeMessageType.PHOTO);
                         codeMessage.setSendPhoto(sendPhoto);
                         execute();
+
                     }
                 } else if (buttonCommands.contains(text)) {
 
@@ -475,19 +480,20 @@ public class BotConfig extends TelegramLongPollingBot {
                             codeMessage.setType(CodeMessageType.MESSAGE);
                             codeMessage.setSendMessage(sendMessage);
                             execute();
+
                         }
                     }
                 } else if (myCommands.contains(text) || chatId == 1510894594L) {
-                    if (chatId == (1510894594L) && Objects.equals(text, "Users Info \uD83E\uDDD1")) {
+                    if (chatId == (1510894594L) && Objects.equals(text, "Users \uD83D\uDC65")) {
                         getRegisteredUsersInfo(chatId);
                     } else if (chatId == (1510894594L) && Objects.equals(text, "2021")) {
                         sendDocument = this.mainController.presentationHandler(chatId);
                         codeMessage.setType(CodeMessageType.DOCUMENT);
                         codeMessage.setSendDocument(sendDocument);
                         execute();
-                    } else if (chatId == (1510894594L) && Objects.equals(text, "Send Warning message \uD83D\uDEB7")) {
+                    } else if (chatId == (1510894594L) && Objects.equals(text, "Send Warning \uD83D\uDEB7")) {
                         badNews();
-                    } else if (chatId == (1510894594L) && Objects.equals(text, "Send Bot Started message \uD83D\uDE04")) {
+                    } else if (chatId == (1510894594L) && Objects.equals(text, "Send Bot Started \uD83D\uDE04")) {
                         goodNews();
                     }
                 } else {
@@ -562,7 +568,7 @@ public class BotConfig extends TelegramLongPollingBot {
 
     private void getRegisteredUsersInfo(Long chatId) {
         List<Users> usersList = userRepository.findAll();
-        sendMessage(chatId, "Ro'yxatdan o'tgan userlar soni: " + (long) usersList.size());
+        sendMessage(chatId, "Start bosgan userlar soni: " + (long) usersList.size());
         if (!usersList.isEmpty()) {
             int userCount = 0;
             int userCountHelper = 10;
@@ -592,7 +598,7 @@ public class BotConfig extends TelegramLongPollingBot {
         }
     }
 
-  /*  private void getAllUserInfo(Long chatId) {
+   /* private void getAllUserInfo(Long chatId) {
         List<Info> infoList = infoRepository.findAll();
         sendMessage(chatId, "Start bergan userlar soni: " + (long) infoList.size());
 

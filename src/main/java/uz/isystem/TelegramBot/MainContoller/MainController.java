@@ -1,7 +1,6 @@
 package uz.isystem.TelegramBot.MainContoller;
 
 import java.time.LocalDateTime;
-
 import uz.isystem.TelegramBot.users.Users;
 import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.meta.api.objects.*;
@@ -17,10 +16,6 @@ import static uz.isystem.TelegramBot.utils.KeyboardMarkup.keyboardMarkup;
 
 @Controller
 public class MainController {
-
-
-//    private static final Logger log = LoggerFactory.getLogger(MainController.class);
-
     public SendMessage startHandler(Long chatId, boolean text) {
         try {
 
@@ -39,12 +34,11 @@ public class MainController {
                         row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")),
                         row(button("Men haqimda \uD83D\uDC40")),
                         row(button("Users \uD83D\uDC65")),
-                        row(button("Send Warning message \uD83D\uDEB7")),
-                        row(button("Send Bot Started message \uD83D\uDE04"))
+                        row(button("Send Warning \uD83D\uDEB7"), button("Send Bot Started \uD83D\uDE04"))
                 );
                 keyboardMarkup.setOneTimeKeyboard(false);
                 keyboardMarkup.setResizeKeyboard(true);
-                keyboardMarkup.setInputFieldPlaceholder("Og'animagap...");
+                keyboardMarkup.setInputFieldPlaceholder("Og'a nima gap...");
                 sendMessage.setReplyMarkup(keyboardMarkup);
                 return sendMessage;
             } else {
@@ -178,9 +172,9 @@ public class MainController {
                             InlineKeyboards.row(
                                     InlineKeyboards.button(" Java Foundation \uD83D\uDC48", "/foundation/java")
                             ),
-                            InlineKeyboards.row(
+                            /*InlineKeyboards.row(
                                     InlineKeyboards.button(" C++ Foundation \uD83D\uDC48", "/foundation/c++")
-                            ), InlineKeyboards.row(
+                            ),*/ InlineKeyboards.row(
                                     InlineKeyboards.button(" Java Telegram Bot \uD83D\uDC48", "/foundation/telegram-bot")
                             ),
                             InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));

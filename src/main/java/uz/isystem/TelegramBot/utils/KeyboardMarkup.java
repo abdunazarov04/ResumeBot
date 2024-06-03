@@ -18,12 +18,12 @@ public class KeyboardMarkup {
         button.setText(text);
         return button;
     }
-    /*public static KeyboardButton button(String text, boolean contact) {
+    public static KeyboardButton button(String text, boolean contact) {
         KeyboardButton button = new KeyboardButton();
         button.setText(text);
         button.setRequestContact(contact);
         return button;
-    }*/
+    }
 
     public static KeyboardButton button(String text, String emoji) {
         String emojiText = EmojiParser.parseToUnicode(emoji + " " + text);
