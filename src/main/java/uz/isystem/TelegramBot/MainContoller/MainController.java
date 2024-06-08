@@ -184,11 +184,35 @@ public class MainController {
         }
     }
 
-    public SendPhoto getLanguage(Long chatId) {
-        try {
-            SendPhoto sendPhoto = new SendPhoto();
-            sendPhoto.setChatId(chatId);
-            sendPhoto.setCaption("""
+    public SendPhoto getLanguage(Long chatId, String username, boolean bool) {
+       if (bool){
+           try {
+               SendPhoto sendPhoto = new SendPhoto();
+               sendPhoto.setChatId(chatId);
+               sendPhoto.setCaption(String.format("""
+                        <b>\uD83C\uDDFA\uD83C\uDDFFAssalomu Alaykum @%s
+                       bot hozirda faqat O'zbek tilida ishlamoqda.
+
+                       \uD83C\uDDF7\uD83C\uDDFAЗдравствуйте, @%s
+                       бот сейчас работает только на узбекском языке.
+
+                       \uD83C\uDDFA\uD83C\uDDF8Hello, @%s
+                       Bot is currently operating only in Uzbek language.</b>
+                       """, username, username, username));
+               sendPhoto.setParseMode(ParseMode.HTML);
+               sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
+               sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
+
+               return sendPhoto;
+           } catch (Exception e) {
+               throw new RuntimeException(e);
+           }
+       }else {
+
+           try {
+               SendPhoto sendPhoto = new SendPhoto();
+               sendPhoto.setChatId(chatId);
+               sendPhoto.setCaption("""
                     <b>\uD83C\uDDFA\uD83C\uDDFFAssalomu Alaykum bot hozirda
                     faqat O'zbek tilida ishlamoqda.
 
@@ -197,14 +221,15 @@ public class MainController {
 
                     \uD83C\uDDFA\uD83C\uDDF8Hello, Bot is currently operating
                     only in Uzbek language.</b>""");
-            sendPhoto.setParseMode(ParseMode.HTML);
-            sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
+               sendPhoto.setParseMode(ParseMode.HTML);
+               sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
+               sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
 
-            return sendPhoto;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+               return sendPhoto;
+           } catch (Exception e) {
+               throw new RuntimeException(e);
+           }
+       }
     }
 
     public SendPhoto tasksHandler(Long chatId) {

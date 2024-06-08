@@ -39,7 +39,7 @@ public class Users {
                 "userId: " + userId +
                 "\nfirstName: " + firstName +
                 "\nlastName: " + lastName +
-                "\nusername: " + username +
+                "\nusername: @" + username +
                 "\nlanguageCode: " + languageCode +
                 "\nisPremium: " + isPremium +
                 "\nisBot: " + isBot +

@@ -369,7 +369,7 @@ public class BotConfig extends TelegramLongPollingBot {
                     codeMessage.setDeleteMessage(deleteMessage);
                     execute();
 
-                    SendPhoto sendPhoto = this.mainController.getLanguage(chatId);
+                    SendPhoto sendPhoto = this.mainController.getLanguage(chatId, "", false);
                     codeMessage.setType(CodeMessageType.PHOTO);
                     codeMessage.setSendPhoto(sendPhoto);
                     execute();
@@ -381,6 +381,8 @@ public class BotConfig extends TelegramLongPollingBot {
             }
 
             if (update.hasMessage()) {
+                Users users = this.mainController.getUsers(update);
+                String username = users.getUsername();
                 long userId = update.getMessage().getFrom().getId();
                 String channel = "-1002010093080";
                 boolean isMember = isUserMember(channel, userId);
@@ -422,14 +424,12 @@ public class BotConfig extends TelegramLongPollingBot {
                     execute();
                 } else if (text != null && commands.contains(text)) {
                     if (text.equals("/start")) {
-
-                        Users users = this.mainController.getUsers(update);
                         user(users);
                         if (!this.userRepository.existsUsersByUserId(users.getUserId())) {
                             userRepository.save(users);
                             sendMessage(ERROR_CHAT_ID, "<b>USER START BOSDI -> </b>" + users.getUserId() + " @" + users.getUsername());
                         }
-                        SendPhoto sendPhoto = this.mainController.getLanguage(chatId);
+                        SendPhoto sendPhoto = this.mainController.getLanguage(chatId, username, true);
                         codeMessage.setType(CodeMessageType.PHOTO);
                         codeMessage.setSendPhoto(sendPhoto);
                         execute();
