@@ -702,7 +702,6 @@ public class BotConfig extends TelegramLongPollingBot {
             return false;
         }
     }
-
     private void sendMessage(long chatId, String text) {
         SendMessage message = new SendMessage();
         message.setParseMode(ParseMode.HTML);
@@ -714,7 +713,6 @@ public class BotConfig extends TelegramLongPollingBot {
             log.info("Failed to send message, error message: {}", e.getMessage());
         }
     }
-
     private void sendExceptionMessage(Exception e) {
         SendMessage message = new SendMessage();
         message.setChatId(ERROR_CHAT_ID);
@@ -729,12 +727,10 @@ public class BotConfig extends TelegramLongPollingBot {
             log.error("Failed to send exception message: {}", ex.getMessage(), ex);
         }
     }
-
     @Override
     public String getBotUsername() {
         return "javachibot";
     }
-
     @Override
     public String getBotToken() {
         return "7445343841:AAHa0PjbnQQQfXW9SYrwT5Jf1cHOigczogc";
