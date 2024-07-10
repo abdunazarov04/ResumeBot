@@ -1,6 +1,7 @@
 package uz.isystem.TelegramBot.MainContoller;
 
 import java.time.LocalDateTime;
+
 import uz.isystem.TelegramBot.users.Users;
 import org.springframework.stereotype.Controller;
 import org.telegram.telegrambots.meta.api.objects.*;
@@ -23,8 +24,9 @@ public class MainController {
             sendMessage.setChatId(chatId);
             if (text) {
                 sendMessage.setText("""
-                        Botga xush kelibsiz, ⚠️Diqqat bot hozirda test holatida ishlamoqda.
-                        """);
+                        Xush Kelibsiz\s
+
+                        ⚠️Diqqat bot hozirda test holatida ishlamoqda⚠️""");
             } else {
                 sendMessage.setText("Siz bosh menudasiz.");
             }
@@ -38,7 +40,7 @@ public class MainController {
                 );
                 keyboardMarkup.setOneTimeKeyboard(false);
                 keyboardMarkup.setResizeKeyboard(true);
-                keyboardMarkup.setInputFieldPlaceholder("Og'a nima gap...");
+                keyboardMarkup.setInputFieldPlaceholder("Yozasizmi?...");
                 sendMessage.setReplyMarkup(keyboardMarkup);
                 return sendMessage;
             } else {
@@ -157,26 +159,26 @@ public class MainController {
             sendPhoto.setPhoto(new InputFile());
             sendPhoto.setChatId(chatId);
             sendPhoto.setCaption("""
-                    Yana bir bor sizni Foundation
-                    bo'limida ko'rib turganimizdan
-                    Hursandmiz hozirda faqat Online
-                    kurslarimiz mavjud iltimos
-                    yo'nalishlardan birini tanlang👇""");
+                    Xush kelibsiz hozirda fqat online
+                    kurslarimiz mavjud, har biz yo'nalish
+                    o'ziga hos qiziqarli mavzularga ega, to'liqroq
+                    ma'lumot olish uchun bo'limlardan birini tanlang👇""");
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFCmZaEv33xjIas70CCnJCg6sovFAyAAJD2zEbl3bRSvPMIRTOXG7IAQADAgADeAADNQQ"));
             sendPhoto.setAllowSendingWithoutReply(true);
             sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup
                     (InlineKeyboards.collection(
                             InlineKeyboards.row(
-                                    InlineKeyboards.button(" Networking \uD83D\uDC48", "/foundation/networking")
+                                    InlineKeyboards.button(" Java Foundation \uD83D\uDC48", "/foundation/java")
                             ),
                             InlineKeyboards.row(
-                                    InlineKeyboards.button(" Java Foundation \uD83D\uDC48", "/foundation/java")
+                                    InlineKeyboards.button(" Java Telegram Bot \uD83D\uDC48", "/foundation/telegram-bot")
+                            ),
+                            InlineKeyboards.row(
+                                    InlineKeyboards.button(" Networking \uD83D\uDC48", "/foundation/networking")
                             ),
                             /*InlineKeyboards.row(
                                     InlineKeyboards.button(" C++ Foundation \uD83D\uDC48", "/foundation/c++")
-                            ),*/ InlineKeyboards.row(
-                                    InlineKeyboards.button(" Java Telegram Bot \uD83D\uDC48", "/foundation/telegram-bot")
-                            ),
+                            ),*/
                             InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));
             return sendPhoto;
         } catch (Exception e) {
@@ -185,51 +187,51 @@ public class MainController {
     }
 
     public SendPhoto getLanguage(Long chatId, String username, boolean bool) {
-       if (bool){
-           try {
-               SendPhoto sendPhoto = new SendPhoto();
-               sendPhoto.setChatId(chatId);
-               sendPhoto.setCaption(String.format("""
-                        <b>\uD83C\uDDFA\uD83C\uDDFFAssalomu Alaykum @%s
-                       bot hozirda faqat O'zbek tilida ishlamoqda.
+        if (bool) {
+            try {
+                SendPhoto sendPhoto = new SendPhoto();
+                sendPhoto.setChatId(chatId);
+                sendPhoto.setCaption(String.format("""
+                         <b>\uD83C\uDDFA\uD83C\uDDFFAssalomu Alaykum @%s
+                        bot hozirda faqat O'zbek tilida ishlamoqda.
 
-                       \uD83C\uDDF7\uD83C\uDDFAЗдравствуйте, @%s
-                       бот сейчас работает только на узбекском языке.
+                        \uD83C\uDDF7\uD83C\uDDFAЗдравствуйте, @%s
+                        бот сейчас работает только на узбекском языке.
 
-                       \uD83C\uDDFA\uD83C\uDDF8Hello, @%s
-                       Bot is currently operating only in Uzbek language.</b>
-                       """, username, username, username));
-               sendPhoto.setParseMode(ParseMode.HTML);
-               sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
-               sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
+                        \uD83C\uDDFA\uD83C\uDDF8Hello, @%s
+                        Bot is currently operating only in Uzbek language.</b>
+                        """, username, username, username));
+                sendPhoto.setParseMode(ParseMode.HTML);
+                sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
+                sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
 
-               return sendPhoto;
-           } catch (Exception e) {
-               throw new RuntimeException(e);
-           }
-       }else {
+                return sendPhoto;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
 
-           try {
-               SendPhoto sendPhoto = new SendPhoto();
-               sendPhoto.setChatId(chatId);
-               sendPhoto.setCaption("""
-                    <b>\uD83C\uDDFA\uD83C\uDDFFAssalomu Alaykum bot hozirda
-                    faqat O'zbek tilida ishlamoqda.
+            try {
+                SendPhoto sendPhoto = new SendPhoto();
+                sendPhoto.setChatId(chatId);
+                sendPhoto.setCaption("""
+                        <b>\uD83C\uDDFA\uD83C\uDDFFAssalomu Alaykum bot hozirda
+                        faqat O'zbek tilida ishlamoqda.
 
-                    \uD83C\uDDF7\uD83C\uDDFAЗдравствуйте, бот сейчас работает
-                    только на узбекском языке.
+                        \uD83C\uDDF7\uD83C\uDDFAЗдравствуйте, бот сейчас работает
+                        только на узбекском языке.
 
-                    \uD83C\uDDFA\uD83C\uDDF8Hello, Bot is currently operating
-                    only in Uzbek language.</b>""");
-               sendPhoto.setParseMode(ParseMode.HTML);
-               sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
-               sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
+                        \uD83C\uDDFA\uD83C\uDDF8Hello, Bot is currently operating
+                        only in Uzbek language.</b>""");
+                sendPhoto.setParseMode(ParseMode.HTML);
+                sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFBWZaElbg6O8chIRBrgLajjkNL2B3AAI72zEbl3bRSksOtiOQWMSPAQADAgADeAADNQQ"));
+                sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("O'zbek Tili \uD83C\uDDFA\uD83C\uDDFF", "language/o'zbek")))));
 
-               return sendPhoto;
-           } catch (Exception e) {
-               throw new RuntimeException(e);
-           }
-       }
+                return sendPhoto;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public SendPhoto tasksHandler(Long chatId) {
@@ -238,7 +240,12 @@ public class MainController {
             SendPhoto sendPhoto = new SendPhoto();
             sendPhoto.setChatId(chatId);
             sendPhoto.setParseMode(ParseMode.HTML);
-            sendPhoto.setCaption("Vazifalar bo'limidasiz.");
+            sendPhoto.setCaption("""
+                    Assalomu Alaykum vazifalar bo'limida
+                    hozirda faqat dasturlashni boshlagan
+                    yangi talabalar uchun sodda misollar
+                    to'plami mavjud ular Foundation bo'limida🎓
+                    """);
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFCWZaEtr5-dBVDMeqNd07n0cXDnLBAAJB2zEbl3bRSqwzi1pi0RvgAQADAgADeAADNQQ"));
             sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Foundation", "/foundation/tasks", ":mag:")
                                         /*,
@@ -255,9 +262,32 @@ public class MainController {
             SendPhoto sendPhoto = new SendPhoto();
             sendPhoto.setChatId(chatId);
             sendPhoto.setParseMode(ParseMode.HTML);
-            sendPhoto.setCaption("Kerakli Mavzuni tanlang!!!");
+            sendPhoto.setCaption("""
+                    Xush kelibsiz Java bo'yicha
+                    boshlang'ich misollar to'plami
+                    qarshingizda, bu misollar shaxsiy
+                    problem soloving, muammolarga yechim
+                    topish qobiliyatingizni shakillantrishiga
+                    yordam beradi, hamda aqliy salohiyatingizni
+                    dasturlash olamida keyngaytiradi,
+                    manfatli bo'lsin😉
+                    """);
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFCGZaErk72chLdu6rXt9uwj5JjNZAAAJA2zEbl3bRSqyN4hMgo-nuAQADAgADeAADNQQ"));
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("PRINT", "/tasks/print-function"), InlineKeyboards.button("IF", "/tasks/if"), InlineKeyboards.button("FOR", "/tasks/for")), InlineKeyboards.row(InlineKeyboards.button("WHILE", "/tasks/while"), InlineKeyboards.button("MATH", "/tasks/maths"), InlineKeyboards.button("ARRAYS", "/tasks/arrays")), InlineKeyboards.row(InlineKeyboards.button("METHODS", "/tasks/methods")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/foundation/task/back")))));
+            sendPhoto.setReplyMarkup(
+                    InlineKeyboards.keyboardMarkup(
+                            InlineKeyboards.collection(
+                                    InlineKeyboards.row(
+                                            InlineKeyboards.button("1️⃣ PRINT", "/tasks/print-function"),
+                                            InlineKeyboards.button("2️⃣ IF", "/tasks/if"),
+                                            InlineKeyboards.button("3️⃣ FOR", "/tasks/for")),
+                                    InlineKeyboards.row(
+                                            InlineKeyboards.button("4️⃣ WHILE", "/tasks/while"),
+                                            InlineKeyboards.button("5️⃣ MATH", "/tasks/maths"),
+                                            InlineKeyboards.button("6️⃣ ARRAYS", "/tasks/arrays")),
+                                    InlineKeyboards.row(
+                                            InlineKeyboards.button("7️⃣ METHODS", "/tasks/methods")),
+                                    InlineKeyboards.row(
+                                            InlineKeyboards.button("Ortga ⬅️", "/foundation/task/back")))));
             return sendPhoto;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -468,37 +498,39 @@ public class MainController {
             sendPhoto.setChatId(id);
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHRmZcvLTHtijk3c5rB22zzuAi6cFQAAII4jEblfLoSrWxKhU5t6DbAQADAgADeAADNQQ"));
             sendPhoto.setCaption("""
-                    Java dasturlash tilini o'rganish bo'yicha
-                    online kursimizga taklif qilamiz. Bu kurs
-                    dasturlashning asosiy tamoyillarini o'rganish
-                    va kuchli dasturchi bo'lish yo'lida birinchi
-                    qadamlarni qo'yishga yordam beradi. Kelajakda
-                    IT sohasida muvaffaqiyatga erishishni xohlasangiz,
-                    bu kurs aynan siz uchun!
+                    JAVA dasturlash tilini o'rganish
+                    bo'yicha online kursimizga taklif
+                    qilamiz. Bu kurs dasturlashning asosiy
+                    tamoyillarini o'rganish va kuchli
+                    dasturchi bo'lish yo'lida birinchi
+                    qadamlarni qo'yishga yordam beradi.
+                    Kelajakda IT sohasida muvaffaqiyatga
+                    erishishni xohlasangiz, bu kurs aynan
+                    siz uchun!😉
                        \s
-                       1 Nimalarni o'rganasiz?
-                       2 Kirish va Asoslar (JVM, JRE, JDK)
-                       3 Sintaksis va O'zgaruvchilar
-                       4 Operatorlar va Ifodalar
-                       5 Shart Operatorlari
-                       6 Massivlar
-                       7 Funktsiyalar va Metodlar
-                       8 Obyektga Yo'naltirilgan Dasturlash (OOP)
-                       9 Paketlar va Kataloglar
-                       10 Java Collections
-                       11 Exception Handling
-                       12 Fayllar bilan Ishlash
+                       Nimalarni o'rganasiz?
+                       1 Kirish va Asoslar (JVM, JRE, JDK)
+                       2 Sintaksis va O'zgaruvchilar
+                       3 Operatorlar va Ifodalar
+                       4 Shart Operatorlari
+                       5 Massivlar
+                       6 Funktsiyalar va Metodlar
+                       7 Obyektga Yo'naltirilgan Dasturlash(OOP)
+                       8 Paketlar va Kataloglar
+                       9 Java Collections
+                       10 Exception Handling
+                       11 Fayllar bilan Ishlash
                        \s
-                       Kurs Davomiyligi
-                        Davomiyligi: 4 oy
-                         Modullar: 4 ta
-                          Oylik darslar: 12 ta
-                           Haftalik darslar: 3 marta
-                            Har bir dars: 2 soat (darslar yozib boriladi)
+                    📚Kurs Davomiyligi: 3 oy
+                    📊Modullar: 4 ta
+                    🌚Oylik darslar soni: 12 ta
+                    🤓Darslar haftasiga: 3 marta
+                    ⏰Har bir dars davomiyligi: 2 soat
+                    💰Kurs narxi: 549.000 so'm
                         \s
                     Sizni kursda ko'rishdan mamnun bo'lamiz!
                     """);
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish\uD83D\uDD16", "https://t.me/AsadbekAbdinazarov", true)), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
             return sendPhoto;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -510,7 +542,8 @@ public class MainController {
         try {
             SendPhoto sendPhoto = new SendPhoto();
             sendPhoto.setChatId(id);
-            sendPhoto.setCaption("Maqsadlar sari yana bir qadam \uD83D\uDE09");
+            sendPhoto.setParseMode(ParseMode.HTML);
+            sendPhoto.setCaption("<i>Maqsadlar sari yana bir qadam, biz bilan bog'laning</i>\uD83D\uDE09");
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHnWZczKDj_59rcBg86JGw7c1TabAxAAJt4jEblfLoSmQ88AT2pvWPAQADAgADeAADNQQ"));
             sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(
                     InlineKeyboards.row(InlineKeyboards.button("Murojat qilish", "https://t.me/AsadbekAbdinazarov", true)),
@@ -529,37 +562,40 @@ public class MainController {
             sendPhoto.setChatId(chatId);
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHQGZcu6RC0w97Af_-0IPLeosBC4BRAAL94TEblfLoSiALU4nGeAJyAQADAgADeAADNQQ"));
             sendPhoto.setCaption("""
-                     Ushbu kurs orqali siz zamonaviy texnologiyalardan
-                    foydalanib, o'zingizning Telegram botlaringizni
-                    yaratishni o'rganasiz. Agar siz dasturlashga
-                    qiziqsangiz yoki IT sohasida yangi ko'nikmalarni
-                    o'rganishni xohlasangiz, bu kurs aynan siz uchun!
+                    Ushbu kurs orqali siz zamonaviy
+                    texnologiyalardan foydalanib,
+                    o'zingizning Telegram botlaringizni
+                    yaratishni o'rganasiz. Agar siz
+                    dasturlashga qiziqsangiz yoki
+                    IT sohasida yangi ko'nikmalarni
+                    o'rganishni xohlasangiz, bu kurs
+                    aynan siz uchun!
                       \s
-                      1 Kurs Dasturi
-                      2 Kerakli taminotlar
-                      3 Telegram API va BotFather
-                      4 Java bilan Telegram botini yaratish
-                      5 Botni sozlash va ishga tushirish
-                      6 Xabarlarni qabul qilish va qayta ishlash
-                      7 Qo'shimcha funksiyalar qo'shish
-                      8 Botni test qilish va debugging
-                      9 Botni serverga joylashtirish
-                      10 Foydalanuvchi ma'lumotlarini himoya qilish
-                      11 Botni optimallashtirish va monitoring qilish
-                      12 Ma'lumotlar Bazasi bilan ishlash
-                      13 Amaliy loyihalar
+                      Nimalarni o'rganasiz?
+                      1 Telegram API va BotFather
+                      2 Java bilan Telegram botini yaratish
+                      3 Botni sozlash va ishga tushirish
+                      4 Xabarlarni qabul qilish va qayta ishlash
+                      5 Qo'shimcha funksiyalar qo'shish
+                      6 Botni test qilish va debugging
+                      7 Botni serverga joylashtirish
+                      8 Foydalanuvchi ma'lumotlarini himoya qilish
+                      9 Botni optimallashtirish va monitoring qilish
+                      10 Ma'lumotlar Bazasi bilan ishlash
+                      11 Amaliy loyihalar
                       \s
                     Kursga yozilish uchun hoziroq bizga murojaat
                     qiling va yangi bilimlar olamiga qadam qo'ying!
                       \s
-                       Kurs Davomiyligi
-                        Davomiyligi: ? oy
-                         Oylik darslar: 12 ta
-                          Haftalik darslar: 3 marta
-                           Har bir dars: 2 soat (darslar yozib boriladi)
+                    📚Kurs Davomiyligi: 3 oy
+                    📊Modullar: 3 ta
+                    🌚Oylik darslar soni: 12 ta
+                    🤓Darslar haftasiga: 3 marta
+                    ⏰Har bir dars davomiyligi: 2 soat
+                    💰Kurs narxi: 449.000 so'm
                       \s
                     Sizni kursda ko'rishdan mamnun bo'lamiz!""");
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish\uD83D\uDD16", "https://t.me/AsadbekAbdinazarov", true)), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
             return sendPhoto;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -616,15 +652,16 @@ public class MainController {
             sendPhoto.setChatId(chatId);
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIHfWZcyg4wn7Sk8Bq8U0OGOpyI6m66AAJa4jEblfLoSgq9SJcjJaAOAQADAgADeAADNQQ"));
             sendPhoto.setCaption("""
-                    Ushbu kurs orqali siz tarmoq (networking)
-                    asoslarini o'rganib, zamonaviy tarmoq texnologiyalari
+                    Ushbu kurs orqali siz tarmoq
+                    (NETWORKING) asoslarini o'rganib,
+                    zamonaviy tarmoq texnologiyalari
                     bo'yicha ko'nikmalarga ega bo'lasiz.
-                    Agar siz IT sohasiga qiziqsangiz yoki yangi
-                    ko'nikmalarni o'rganishni xohlasangiz,
-                    bu kurs aynan siz uchun!
+                    Agar siz IT sohasiga qiziqsangiz yoki
+                    yangi ko'nikmalarni o'rganishni
+                    xohlasangiz,bu kurs aynan siz uchun!
                       \s
-                    Kurs Dasturi
-                      1 Kirish.
+                    Nimalarni o'rganasiz?
+                      1 Networking bilam tanishish.
                       2 Tarmoq asoslari.
                       3 OSI va TCP/IP modellari.
                       4 IP manzillash.
@@ -632,22 +669,27 @@ public class MainController {
                       6 Routing va Switching.
                       7 Tarmoq xavfsizligi.
                       8 Wi-Fi va simsiz tarmoqlar.
-                      9 Tarmoq monitoringi va troubleshooting.
+                      9 Tarmoq monitoringi
+                               va
+                        Troubleshooting.
                       10 Amaliy loyihalar.
                       \s
-                    Tarmoq texnologiyalarini o'rganish va zamonaviy
-                    ko'nikmalarga ega bo'lish imkoniyatini qo'ldan
-                    boy bermang! Kursga yozilish uchun hoziroq bizga
-                    murojaat qiling va yangi bilimlar olamiga qadam qo'ying!
+                    Tarmoq texnologiyalarini o'rganish
+                    va zamonaviy ko'nikmalarga ega bo'lish
+                    imkoniyatini qo'ldan boy bermang! Kursga
+                    yozilish uchun hoziroq bizga murojaat
+                    qiling va yangi bilimlar olamiga
+                    qadam qo'ying!
                       \s
-                       Kurs Davomiyligi
-                        Davomiyligi: ? oy
-                         Oylik darslar: 12 ta
-                          Haftalik darslar: 3 marta
-                           Har bir dars: 2 soat (darslar yozib boriladi)
+                    📚Kurs Davomiyligi: 3 oy
+                    📊Modullar: 3 ta
+                    🌚Oylik darslar soni: 12 ta
+                    🤓Darslar haftasiga: 3 marta
+                    ⏰Har bir dars davomiyligi: 2 soat
+                    💰Kurs narxi: 449.000 so'm
                       \s
                     Sizni kursda ko'rishdan mamnun bo'lamiz!""");
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish", "/f/o/kursga/yozilish", ":multiple_houses:")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Kursga Yozilish\uD83D\uDD16", "https://t.me/AsadbekAbdinazarov", true)), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back/2")))));
             return sendPhoto;
         } catch (Exception e) {
             throw new RuntimeException(e);

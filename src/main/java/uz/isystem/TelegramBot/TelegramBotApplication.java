@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import uz.isystem.TelegramBot.MainContoller.MainController;
 import uz.isystem.TelegramBot.config.BotConfig;
 
 @SpringBootApplication
@@ -27,6 +26,7 @@ class RegisterBot {
 
     @Autowired
     BotConfig botConfig;
+
 
     @EventListener({ContextRefreshedEvent.class})
     public void init() {
