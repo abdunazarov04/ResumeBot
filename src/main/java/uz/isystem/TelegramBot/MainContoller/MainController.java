@@ -57,7 +57,7 @@ public class MainController {
             sendDocument.setCaption("<i>Men haqimda to'liqroq o'qing</i>");
             sendDocument.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/social/media/back")))));
             sendDocument.setParseMode(ParseMode.HTML);
-            sendDocument.setDocument(new InputFile("BQACAgIAAxkBAAIE5mZaDqfqnq40xYqx632zrxbG0Sh5AAIxSwACl3bRSjl_PoA8EJcxNQQ"));
+            sendDocument.setDocument(new InputFile("BQACAgIAAxkBAAINzGaOrCjeSjUOkbPtNODsaA3rQiwuAAKQTQACfX95SJnW1WoYr8hONQQ"));
             return sendDocument;
         } catch (Exception e) {
             throw new RuntimeException(e);
