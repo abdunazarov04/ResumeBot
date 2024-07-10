@@ -33,5 +33,5 @@ build/
 .vscode/
 
 # Ignore BotConfig.java
-/src/main/java/uz/isystem/TelegramBot/config/BotConfig.java
-/src/main/resources/application.properties
+#src/main/java/uz/isystem/TelegramBot/config/BotConfig.java
+#src/main/resources/application.properties
