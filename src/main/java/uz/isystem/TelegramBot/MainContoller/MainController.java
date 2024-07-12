@@ -315,7 +315,7 @@ public class MainController {
             sendPhoto.setCaption("Men haqimda To'liqroq tanishib chiqing.");
             sendPhoto.setParseMode(ParseMode.HTML);
             sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIFB2ZaEp3IiZTFU0FQFwFn2QVXV305AAI_2zEbl3bRSjNYT4Rtld1RAQADAgADeAADNQQ"));
-            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("LinkedIn \uD83D\uDD0E", "https://www.linkedin.com/in/asadbek-abdinazarov-97b844234/", true), InlineKeyboards.button("Instagram \uD83D\uDD0E", "https://www.instagram.com/_abdunazarov_a/", true)), InlineKeyboards.row(InlineKeyboards.button("LeetCode \uD83D\uDD0E", "https://leetcode.com/u/abdunazarov04/", true), InlineKeyboards.button("Telegram \uD83D\uDD0E", "https://t.me/AsadbekAbdinazarov", true)), InlineKeyboards.row(InlineKeyboards.button("CV \uD83D\uDD0E", "/cv")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));
+            sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("LinkedIn \uD83D\uDD0E", "t.me/javachibot/LinkedIn", true), InlineKeyboards.button("Instagram \uD83D\uDD0E", "t.me/javachibot/instagram", true)), InlineKeyboards.row(InlineKeyboards.button("LeetCode \uD83D\uDD0E", "t.me/javachibot/leetcode", true), InlineKeyboards.button("Telegram \uD83D\uDD0E", "https://t.me/AsadbekAbdinazarov", true)), InlineKeyboards.row(InlineKeyboards.button("CV \uD83D\uDD0E", "/cv")), InlineKeyboards.row(InlineKeyboards.button("Ortga ⬅️", "/back")))));
 
             return sendPhoto;
         } catch (Exception e) {
