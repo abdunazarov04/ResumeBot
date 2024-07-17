@@ -32,7 +32,7 @@ public class MainController {
             }
             if (chatId == 1510894594L) {
                 ReplyKeyboardMarkup keyboardMarkup = keyboardMarkup(
-                        row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/),
+                        row(button("Foundation Kurslar\uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/),
                         row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")),
                         row(button("Men haqimda \uD83D\uDC40")),
                         row(button("Users \uD83D\uDC65")),
@@ -436,7 +436,46 @@ public class MainController {
             SendDocument sendDocument = new SendDocument();
             sendDocument.setChatId(chatId);
             sendDocument.setDocument(new InputFile("BQACAgIAAxkBAAIE7GZaD7Z5ybP1E3NvAbUmo-aYmrzpAAJKSwACl3bRSucO6gPaXSbxNQQ"));
-            sendDocument.setCaption("Agarda Dasturlash bo'yicha to'liq malumotga ega bo'lmoqchi bo'lsangiz Presentation tugmasini bosing.");
+            sendDocument.setCaption("""
+                    Dasturlashni endi boshlayotganlar uchun kuchli
+                    Kompiyuter kerak emas ammo bir qancha omillarga
+                    E'tibor berishimiz lozim.
+                    
+                    Kompiyuter Ishlab chiqaruvchi kompaniyalar.
+                    (LENOVO, ACER, APPLE, HP, ASUS, DEL) va shu kabilar maslahat beriladi.
+                    
+                    Minimal Talablar:
+                    Protsessor (CPU): Intel Core i3 yoki ekvivalent
+                    AMD protsessor.
+                    
+                    Operativ Xotira (RAM): 4 GB.
+                    
+                    Qattiq Disk (HDD/SSD): 500 GB HDD yoki 128 GB SSD.
+                    
+                    Operatsion Tizim: Windows 10, macOS, yoki Linux
+                    (Ubuntu tavsiya etiladi).
+                    
+                    Ekran: 1366x768 piksel yoki undan yuqori.
+                    
+                    Tavsiya Etilgan Talablar:
+                    Protsessor (CPU): Intel Core i5 yoki undan yuqori,
+                                      AMD Ryzen 5 yoki undan yuqori.
+                    Operativ Xotira (RAM): 8 GB yoki undan ko'p.
+                    Agar siz og'ir yuklamali ilovalar bilan ishlasangiz,
+                    16 GB yoki undan ko'p RAM tavsiya etiladi.
+                    
+                    Qattiq Disk (HDD/SSD): 256 GB SSD yoki undan katta
+                    hajmdagi SSD (SSD qattiq diskdan tezroq ishlaydi
+                    va umumiy tizim tezligini oshiradi).
+                    
+                    Operatsion Tizim: Windows 10/11, macOS, yoki Linux
+                    (Ubuntu yoki Fedora).
+                    
+                    Ekran: 1920x1080 piksel (Full HD) yoki undan yuqori.
+                    
+                    Agarda Dasturlash bo'yicha to'liq malumotga ega
+                    bo'lmoqchi bo'lsangiz Presentation tugmasini bosing.
+                    """);
             sendDocument.setParseMode(ParseMode.HTML);
             sendDocument.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Presentation \uD83D\uDCD4", "/presentation"), InlineKeyboards.button("Ortga  ⬅️", "/back")))));
             return sendDocument;
