@@ -437,47 +437,22 @@ public class MainController {
             sendDocument.setChatId(chatId);
             sendDocument.setDocument(new InputFile("BQACAgIAAxkBAAIE7GZaD7Z5ybP1E3NvAbUmo-aYmrzpAAJKSwACl3bRSucO6gPaXSbxNQQ"));
             sendDocument.setCaption("""
-                    Dasturlashni endi boshlayotganlar uchun kuchli
-                    Kompiyuter kerak emas ammo bir qancha omillarga
-                    E'tibor berishimiz lozim.
-                    
-                    Kompiyuter Ishlab chiqaruvchi kompaniyalar.
-                    (LENOVO, ACER, APPLE, HP, ASUS, DEL) va shu kabilar maslahat beriladi.
-                    
-                    Minimal Talablar:
-                    Protsessor (CPU): Intel Core i3 yoki ekvivalent
-                    AMD protsessor.
-                    
-                    Operativ Xotira (RAM): 4 GB.
-                    
-                    Qattiq Disk (HDD/SSD): 500 GB HDD yoki 128 GB SSD.
-                    
-                    Operatsion Tizim: Windows 10, macOS, yoki Linux
-                    (Ubuntu tavsiya etiladi).
-                    
-                    Ekran: 1366x768 piksel yoki undan yuqori.
-                    
-                    Tavsiya Etilgan Talablar:
-                    Protsessor (CPU): Intel Core i5 yoki undan yuqori,
-                                      AMD Ryzen 5 yoki undan yuqori.
-                    Operativ Xotira (RAM): 8 GB yoki undan ko'p.
-                    Agar siz og'ir yuklamali ilovalar bilan ishlasangiz,
-                    16 GB yoki undan ko'p RAM tavsiya etiladi.
-                    
-                    Qattiq Disk (HDD/SSD): 256 GB SSD yoki undan katta
-                    hajmdagi SSD (SSD qattiq diskdan tezroq ishlaydi
-                    va umumiy tizim tezligini oshiradi).
-                    
-                    Operatsion Tizim: Windows 10/11, macOS, yoki Linux
-                    (Ubuntu yoki Fedora).
-                    
-                    Ekran: 1920x1080 piksel (Full HD) yoki undan yuqori.
-                    
-                    Agarda Dasturlash bo'yicha to'liq malumotga ega
-                    bo'lmoqchi bo'lsangiz Presentation tugmasini bosing.
+                    Dasturlashni endi boshlayotganlar
+                    uchun kuchli Kompiyuter kerak emas ammo
+                    bir qancha omillarga E'tibor berishimiz
+                    lozim. Agarda Dasturlash bo'yicha
+                    to'liq malumotga ega bo'lmoqchi bo'lsangiz
+                    Presentation tugmasini bosing.
                     """);
             sendDocument.setParseMode(ParseMode.HTML);
-            sendDocument.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(InlineKeyboards.row(InlineKeyboards.button("Presentation \uD83D\uDCD4", "/presentation"), InlineKeyboards.button("Ortga  ⬅️", "/back")))));
+            sendDocument.setReplyMarkup(InlineKeyboards.keyboardMarkup(InlineKeyboards.collection(
+                    InlineKeyboards.row(
+                            InlineKeyboards.button("Minimal Talablar", "/min-talablar"),
+                            InlineKeyboards.button("O'rtacha Tablar", "/middle-talablar")),
+                    InlineKeyboards.row(
+                            InlineKeyboards.button("Presentation \uD83D\uDCD4", "/presentation"),
+                            InlineKeyboards.button("Ortga  ⬅️", "/back"))
+            )));
             return sendDocument;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -735,5 +710,65 @@ public class MainController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public SendPhoto minTalablarHandler(Long chatId) {
+
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setParseMode(ParseMode.HTML);
+        sendPhoto.setChatId(chatId);
+        sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIQdWaXZJVXC2MYhCabZyA2fORh9dG9AAJS2jEbI-XASMz22TaShphOAQADAgADeAADNQQ"));
+        sendPhoto.setCaption("""
+                             💫Minimal Talablar💫
+                Protsessor (CPU): Intel Core i3 yoki ekvivalent
+                AMD protsessor.
+                Operativ Xotira (RAM): 4 GB.
+                Qattiq Disk (HDD/SSD): 500 GB HDD yoki 128 GB SSD.
+                Operatsion Tizim: Windows 10, macOS, yoki Linux
+                (Ubuntu tavsiya etiladi).
+                Ekran: 1366x768 piksel yoki undan yuqori.
+                """);
+        sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(
+                InlineKeyboards.collection(
+                        InlineKeyboards.row(
+                                InlineKeyboards.button("Ortga ⬅️", "/back/resource")
+                        )
+                )
+        ));
+
+        return sendPhoto;
+    }
+
+    public SendPhoto middleTalablarHandler(Long chatId) {
+
+        SendPhoto sendPhoto = new SendPhoto();
+        sendPhoto.setParseMode(ParseMode.HTML);
+        sendPhoto.setChatId(chatId);
+        sendPhoto.setPhoto(new InputFile("AgACAgIAAxkBAAIQdmaXZMdB062ogDZ1555aPL1zaFlMAAJW2jEbI-XASKCES3Ly4zY6AQADAgADeAADNQQ"));
+        sendPhoto.setCaption("""
+                          💫Tavsiya Etilgan Talablar💫
+                Protsessor
+                (CPU): Intel Core i5 yoki undan yuqori,
+                AMD Ryzen 5 yoki undan yuqori.
+                Operativ Xotira (RAM): 8 GB yoki undan ko'p.
+                Agar siz og'ir yuklamali ilovalar
+                bilan ishlasangiz,16 GB yoki undan ko'p
+                RAM tavsiya etiladi.
+                Qattiq Disk (HDD/SSD): 256 GB SSD yoki undan katta
+                hajmdagi SSD (SSD qattiq diskdan tezroq ishlaydi
+                va umumiy tizim tezligini oshiradi).
+                Operatsion Tizim: Windows 10/11, macOS, yoki Linux
+                (Ubuntu yoki Fedora).
+                Ekran: 1920x1080 piksel (Full HD) yoki undan yuqori.
+                """);
+        sendPhoto.setReplyMarkup(InlineKeyboards.keyboardMarkup(
+                InlineKeyboards.collection(
+                        InlineKeyboards.row(
+                                InlineKeyboards.button("Ortga ⬅️", "/back/resource")
+                        )
+                )
+        ));
+
+        return sendPhoto;
     }
 }

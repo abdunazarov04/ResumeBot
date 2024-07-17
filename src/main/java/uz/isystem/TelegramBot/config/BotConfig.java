@@ -2,7 +2,6 @@ package uz.isystem.TelegramBot.config;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import uz.isystem.TelegramBot.users.Users;
 import org.springframework.stereotype.Component;
 import uz.isystem.TelegramBot.enums.CodeMessage;
@@ -10,6 +9,7 @@ import uz.isystem.TelegramBot.enums.CodeMessageType;
 import org.telegram.telegrambots.meta.api.objects.*;
 import uz.isystem.TelegramBot.repository.UserRepository;
 import org.telegram.telegrambots.meta.api.methods.send.*;
+import org.springframework.beans.factory.annotation.Value;
 import uz.isystem.TelegramBot.MainContoller.MainController;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -37,7 +37,7 @@ public class BotConfig extends TelegramLongPollingBot {
     private final List<String> callbackTasksCommands = List.of("/foundation/tasks", "/tasks/add-button");
     private final List<String> trashCallback = List.of("bad/news/delete/message", "good/news/delete/message");
     private final List<String> myCommands = List.of("2021", "Users Info \uD83E\uDDD1", "Users \uD83D\uDC65", "Send Warning \uD83D\uDEB7", "Send Bot Started \uD83D\uDE04", "clean");
-    private final List<String> callbackCommands = List.of("/back", "/back/2", "/foundation/java", "/foundation/telegram-bot", "/foundation/c++", "/foundation/networking", "/f/o/kursga/yozilish", "/presentation", "/back/resource");
+    private final List<String> callbackCommands = List.of("/back", "/back/2", "/foundation/java", "/foundation/telegram-bot", "/foundation/c++", "/foundation/networking", "/f/o/kursga/yozilish", "/presentation", "/back/resource", "/min-talablar", "/middle-talablar");
     private final List<String> buttonCommands = List.of("Men haqimda \uD83D\uDC40", "Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB", "Backend \uD83D\uDC68\u200D\uD83D\uDCBB", "Vazifalar \uD83D\uDCD4", "Kerakli Kompiyuter \uD83D\uDCBB");
     private final List<String> callbackTasksCommand = List.of("/tasks/if", "/tasks/for", "/tasks/while", "/tasks/methods", "/tasks/arrays", "/tasks/back", "/foundation/tasks/back", "/foundation/task/back", "/tasks/print-function", "/tasks/maths");
 
@@ -145,6 +145,29 @@ public class BotConfig extends TelegramLongPollingBot {
                             sendDocument = this.mainController.sendPresentation(chatId);
                             codeMessage.setType(CodeMessageType.DOCUMENT);
                             codeMessage.setSendDocument(sendDocument);
+                            execute();
+                            return;
+                        }
+                        case "/min-talablar" -> {
+                            DeleteMessage deleteMessage = getDeleteMessage(chatId, messageId);
+                            codeMessage.setType(CodeMessageType.DELETE_MESSAGE);
+                            codeMessage.setDeleteMessage(deleteMessage);
+                            execute();
+
+                            SendPhoto sendPhoto = this.mainController.minTalablarHandler(chatId);
+                            codeMessage.setType(CodeMessageType.PHOTO);
+                            codeMessage.setSendPhoto(sendPhoto);
+                            execute();
+                            return;
+                        }case "/middle-talablar" -> {
+                            DeleteMessage deleteMessage = getDeleteMessage(chatId, messageId);
+                            codeMessage.setType(CodeMessageType.DELETE_MESSAGE);
+                            codeMessage.setDeleteMessage(deleteMessage);
+                            execute();
+
+                            SendPhoto sendPhoto = this.mainController.middleTalablarHandler(chatId);
+                            codeMessage.setType(CodeMessageType.PHOTO);
+                            codeMessage.setSendPhoto(sendPhoto);
                             execute();
                             return;
                         }
