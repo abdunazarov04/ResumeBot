@@ -38,7 +38,7 @@ public class BotConfig extends TelegramLongPollingBot {
     private final List<String> trashCallback = List.of("bad/news/delete/message", "good/news/delete/message");
     private final List<String> myCommands = List.of("2021", "Users Info \uD83E\uDDD1", "Users \uD83D\uDC65", "Send Warning \uD83D\uDEB7", "Send Bot Started \uD83D\uDE04", "clean");
     private final List<String> callbackCommands = List.of("/back", "/back/2", "/foundation/java", "/foundation/telegram-bot", "/foundation/c++", "/foundation/networking", "/f/o/kursga/yozilish", "/presentation", "/back/resource", "/min-talablar", "/middle-talablar");
-    private final List<String> buttonCommands = List.of("Men haqimda \uD83D\uDC40", "Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB", "Backend \uD83D\uDC68\u200D\uD83D\uDCBB", "Vazifalar \uD83D\uDCD4", "Kerakli Kompiyuter \uD83D\uDCBB");
+    private final List<String> buttonCommands = List.of("Men haqimda \uD83D\uDC40", "Foundation Kurslar\uD83E\uDDD1\u200D\uD83D\uDCBB", "Backend \uD83D\uDC68\u200D\uD83D\uDCBB", "Vazifalar \uD83D\uDCD4", "Kerakli Kompiyuter \uD83D\uDCBB");
     private final List<String> callbackTasksCommand = List.of("/tasks/if", "/tasks/for", "/tasks/while", "/tasks/methods", "/tasks/arrays", "/tasks/back", "/foundation/tasks/back", "/foundation/task/back", "/tasks/print-function", "/tasks/maths");
 
 
