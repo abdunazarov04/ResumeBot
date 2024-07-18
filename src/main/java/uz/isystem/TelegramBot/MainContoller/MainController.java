@@ -44,7 +44,7 @@ public class MainController {
                 sendMessage.setReplyMarkup(keyboardMarkup);
                 return sendMessage;
             } else {
-                sendMessage.setReplyMarkup(keyboardMarkup(row(button("Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/), row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")), row(button("Men haqimda \uD83D\uDC40"))));
+                sendMessage.setReplyMarkup(keyboardMarkup(row(button("Foundation Kurslar\uD83E\uDDD1\u200D\uD83D\uDCBB")/*, button("Backend \uD83D\uDC68\u200D\uD83D\uDCBB")*/), row(button("Vazifalar \uD83D\uDCD4"), button("Kerakli Kompiyuter \uD83D\uDCBB")), row(button("Men haqimda \uD83D\uDC40"))));
                 return sendMessage;
             }
         } catch (Exception e) {

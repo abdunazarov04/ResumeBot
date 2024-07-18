@@ -461,7 +461,7 @@ public class BotConfig extends TelegramLongPollingBot {
                             codeMessage.setSendPhoto(sendPhoto);
                             execute();
                         }
-                        case "Foundation \uD83E\uDDD1\u200D\uD83D\uDCBB" -> {
+                        case "Foundation Kurslar\uD83E\uDDD1\u200D\uD83D\uDCBB" -> {
                             SendPhoto sendPhoto = this.mainController.foundationHandler(chatId);
                             codeMessage.setType(CodeMessageType.PHOTO);
                             codeMessage.setSendPhoto(sendPhoto);
