@@ -466,6 +466,7 @@ public class BotConfig extends TelegramLongPollingBot {
                             codeMessage.setType(CodeMessageType.PHOTO);
                             codeMessage.setSendPhoto(sendPhoto);
                             execute();
+
                         }
                         case "Kerakli Kompiyuter \uD83D\uDCBB" -> {
                             sendDocument = this.mainController.laptopHandler(chatId);
