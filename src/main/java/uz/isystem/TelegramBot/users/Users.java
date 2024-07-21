@@ -43,14 +43,15 @@ public class Users {
         }
         return "New Message\n" +
                 "---------------------\n" +
-                "\uD83C\uDD94: " + userId +
-                "\n\uD83D\uDC64 First Name: " + firstName +
-                "\n\uD83D\uDC64 Last Name: " + lastName +
-                "\n\uD83D\uDC68\u200D\uD83D\uDCBB Username: @" + username +
+                "\uD83C\uDD94: " + (userId != null ? userId : "N/A") +
+                "\n\uD83D\uDC64 First Name: " + (firstName != null ? firstName : "N/A") +
+                "\n\uD83D\uDC64 Last Name: " + (lastName != null ? lastName : "N/A") +
+                "\n\uD83D\uDC68\u200D\uD83D\uDCBB Username: @" + (username != null ? username : "N/A") +
                 "\n\uD83D\uDD04 Language: " + languageCode +
-                "\n\uD83C\uDF81 Is Premium ?: " + isPremium +
-                "\n\uD83E\uDD16 Is Bot ?: " + isBot +
-                "\n\uD83D\uDCC5 Created Date: " + createAt.format(formatter) + "\n" +
+                "\n\uD83C\uDF81 Is Premium ?: " + (isPremium != null ? isPremium : "N/A") +
+                "\n\uD83E\uDD16 Is Bot ?: " + (isBot != null ? isBot : "N/A") +
+                "\n\uD83D\uDCC5 Created Date: " + (createAt != null ? createAt.format(formatter) : "N/A") + "\n" +
                 "---------------------";
+
     }
 }
