@@ -159,7 +159,8 @@ public class BotConfig extends TelegramLongPollingBot {
                             codeMessage.setSendPhoto(sendPhoto);
                             execute();
                             return;
-                        }case "/middle-talablar" -> {
+                        }
+                        case "/middle-talablar" -> {
                             DeleteMessage deleteMessage = getDeleteMessage(chatId, messageId);
                             codeMessage.setType(CodeMessageType.DELETE_MESSAGE);
                             codeMessage.setDeleteMessage(deleteMessage);
@@ -580,35 +581,42 @@ public class BotConfig extends TelegramLongPollingBot {
 
     private void getRegisteredUsersInfo(Long chatId) {
         List<Users> usersList = userRepository.findAll();
-        sendMessage(chatId, "Start bosgan userlar soni: " + (long) usersList.size());
+        sendMessage(chatId, "Start bosgan userlar soni: " + usersList.size());
+
         if (!usersList.isEmpty()) {
             int userCount = 0;
             int userCountHelper = 10;
             int count = 0;
             StringBuilder sb = new StringBuilder();
+
             for (Users user : usersList) {
-                sb.append(user).append("\n\n");
-                userCount++;
-                if (userCount % userCountHelper == 0) {
-                    sendMessage(chatId, sb.toString());
-                    sb.setLength(0);
-                    count++;
-                }
-                if (count > 0 && count % 10 == 0) {
-                    try {
-                        sendMessage(chatId, "Malumot ko'pligi bois time control ishga tushdi kutish vaqti: o'rtacha 8 * 10 sekund.");
-                        TimeUnit.SECONDS.sleep(timeControl);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
+                if (user != null) {
+                    sb.append(user).append("\n\n");
+                    userCount++;
+
+                    if (userCount % userCountHelper == 0) {
+                        sendMessage(chatId, sb.toString());
+                        sb.setLength(0); // Clear the StringBuilder
+                        count++;
+                    }
+
+                    if (count > 0 && count % 10 == 0) {
+                        try {
+                            sendMessage(chatId, "Malumot ko'pligi bois time control ishga tushdi kutish vaqti: o'rtacha 8 * 10 sekund.");
+                            TimeUnit.SECONDS.sleep(80); // Assuming timeControl is 80 seconds
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
                     }
                 }
             }
 
-            if (!sb.isEmpty()) {
+            if (sb.length() > 0) {
                 sendMessage(chatId, sb.toString());
             }
         }
     }
+
 
     /* private void getAllUserInfo(Long chatId) {
          List<Info> infoList = infoRepository.findAll();

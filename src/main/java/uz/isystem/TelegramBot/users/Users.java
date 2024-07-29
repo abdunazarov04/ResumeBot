@@ -36,22 +36,38 @@ public class Users {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
-        switch (languageCode) {
-            case "uz" -> languageCode = "\uD83C\uDDFA\uD83C\uDDFF";
-            case "en" -> languageCode = "\uD83C\uDDFA\uD83C\uDDF8";
-            case "ru" -> languageCode = "\uD83C\uDDF7\uD83C\uDDFA";
+
+        // Check for null and assign default value if necessary
+        String languageSymbol;
+        if (languageCode != null) {
+            switch (languageCode) {
+                case "uz":
+                    languageSymbol = "\uD83C\uDDFA\uD83C\uDDFF";
+                    break;
+                case "en":
+                    languageSymbol = "\uD83C\uDDFA\uD83C\uDDF8";
+                    break;
+                case "ru":
+                    languageSymbol = "\uD83C\uDDF7\uD83C\uDDFA";
+                    break;
+                default:
+                    languageSymbol = languageCode;
+            }
+        } else {
+            languageSymbol = "N/A";
         }
+
         return "New Message\n" +
                 "---------------------\n" +
                 "\uD83C\uDD94: " + (userId != null ? userId : "N/A") +
                 "\n\uD83D\uDC64 First Name: " + (firstName != null ? firstName : "N/A") +
                 "\n\uD83D\uDC64 Last Name: " + (lastName != null ? lastName : "N/A") +
                 "\n\uD83D\uDC68\u200D\uD83D\uDCBB Username: @" + (username != null ? username : "N/A") +
-                "\n\uD83D\uDD04 Language: " + languageCode +
+                "\n\uD83D\uDD04 Language: " + languageSymbol +
                 "\n\uD83C\uDF81 Is Premium ?: " + (isPremium != null ? isPremium : "N/A") +
                 "\n\uD83E\uDD16 Is Bot ?: " + (isBot != null ? isBot : "N/A") +
                 "\n\uD83D\uDCC5 Created Date: " + (createAt != null ? createAt.format(formatter) : "N/A") + "\n" +
                 "---------------------";
-
     }
+
 }
