@@ -33,4 +33,4 @@ build/
 .vscode/
 
 # Ignore BotConfig.java
-src/magsin/resources/application.properties
+src/main/resources/application.properties
