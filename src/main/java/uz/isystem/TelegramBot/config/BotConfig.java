@@ -2,6 +2,9 @@ package uz.isystem.TelegramBot.config;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.RequiredArgsConstructor;
+import org.telegram.telegrambots.meta.api.objects.payments.Invoice;
+import org.telegram.telegrambots.meta.api.objects.payments.SuccessfulPayment;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import uz.isystem.TelegramBot.users.Users;
 import org.springframework.stereotype.Component;
 import uz.isystem.TelegramBot.enums.CodeMessage;
@@ -17,6 +20,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.meta.api.objects.chatmember.ChatMember;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.groupadministration.GetChatMember;
+import uz.isystem.TelegramBot.utils.InlineKeyboards;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -40,11 +44,13 @@ public class BotConfig extends TelegramLongPollingBot {
     private final List<String> callbackCommands = List.of("/back", "/back/2", "/foundation/java", "/foundation/telegram-bot", "/foundation/c++", "/foundation/networking", "/f/o/kursga/yozilish", "/presentation", "/back/resource", "/min-talablar", "/middle-talablar");
     private final List<String> buttonCommands = List.of("Men haqimda \uD83D\uDC40", "Foundation Kurslar\uD83E\uDDD1\u200D\uD83D\uDCBB", "Backend \uD83D\uDC68\u200D\uD83D\uDCBB", "Vazifalar \uD83D\uDCD4", "Kerakli Kompiyuter \uD83D\uDCBB");
     private final List<String> callbackTasksCommand = List.of("/tasks/if", "/tasks/for", "/tasks/while", "/tasks/methods", "/tasks/arrays", "/tasks/back", "/foundation/tasks/back", "/foundation/task/back", "/tasks/print-function", "/tasks/maths");
-
+    private final List<String> addPostToChannelCommands = List.of("/add");
 
     static int timeControl = 8;
     private final CodeMessage codeMessage = new CodeMessage();
     private static final long ERROR_CHAT_ID = -1002229918655L;
+    private static final long CHANNEL_CHAT_ID = -1002010093080L;
+    private static SendPhoto sendPhoto;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -390,8 +396,7 @@ public class BotConfig extends TelegramLongPollingBot {
                     return;
                 }
             }
-
-            if (update.hasMessage()) {
+            if (update.hasMessage() && update.getMessage().hasText()) {
                 Users users = this.mainController.getUsers(update);
                 String username = users.getUsername();
                 long userId = update.getMessage().getFrom().getId();
@@ -509,6 +514,31 @@ public class BotConfig extends TelegramLongPollingBot {
                     } else if (chatId == (1510894594L) && Objects.equals(text, "Send Bot Started \uD83D\uDE04")) {
                         goodNews();
                     }
+                }
+                if (addPostToChannelCommands.contains(text) && chatId == 1510894594L) {
+                    if (text.equals("/add")) {
+                        sendMessage(1510894594L, "Post uchun rasim yuboring.");
+                    }
+
+                } else if (chatId == 1510894594L && text.startsWith("caption")) {
+                    String substring = text.substring(7);
+                    sendPhoto.setCaption(substring);
+                    sendMessage(1510894594L, "Button uchun nom va link yuboring.");
+                } else if (chatId == 1510894594L && text.startsWith("all ")) {
+                    String buttonName = text.substring(4);
+                    String[] split = buttonName.split(", ");
+                    sendPhoto.setReplyMarkup(
+                            InlineKeyboards.keyboardMarkup(
+                                    InlineKeyboards.collection(
+                                            InlineKeyboards.row(
+                                                    InlineKeyboards.button(split[0], split[1], true)
+                                            )
+                                    )
+                            )
+                    );
+                    codeMessage.setSendPhoto(sendPhoto);
+                    codeMessage.setType(CodeMessageType.PHOTO);
+                    execute();
                 } else {
                     assert text != null;
                     if (text.equals("Ortga ⬅")) {
@@ -524,6 +554,11 @@ public class BotConfig extends TelegramLongPollingBot {
                     codeMessage.setSendMessage(sendMessage);
                     execute();
                 }
+            } else if (update.getMessage().getChatId() == 1510894594L && update.getMessage().hasPhoto()) {
+                sendPhoto = new SendPhoto();
+                sendPhoto.setChatId(CHANNEL_CHAT_ID);
+                sendPhoto.setPhoto(new InputFile(update.getMessage().getPhoto().get(update.getMessage().getPhoto().size() - 1).getFileId()));
+                sendMessage(1510894594L, "Caption yuboring");
             }
         } catch (Exception e) {
             log.error("Exception occurred: {}", e.getMessage(), e);
